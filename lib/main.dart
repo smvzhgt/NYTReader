@@ -1,39 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nyt_news/src/scenes/main/data/datasources/main_remote_data_source.dart';
+import 'package:nyt_news/src/scenes/main/data/repositories/main_repository.dart';
+import 'package:nyt_news/src/scenes/main/domain/interactor/main_interactor.dart';
+import 'package:nyt_news/src/scenes/main/presentation/bloc/main_bloc.dart';
+import 'package:nyt_news/src/scenes/main/presentation/pages/main_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
+  final MainInteractor interactor;
+  App({Key key})
+      : interactor =
+            MainInteractorImpl(MainRepositoryImpl(MainRemoteDataSourceImpl())),
+        super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+      debugShowCheckedModeBanner: false,
+      title: 'New York Times Reader',
+      home: BlocProvider(
+        create: (context) => MainBloc(interactor),
+        child: const MainPage(),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Container());
   }
 }
