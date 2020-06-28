@@ -4,26 +4,26 @@ import 'package:nyt_news/core/pages/error_page.dart';
 import 'package:nyt_news/core/pages/loading_page.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/widgets/article_row_widget.dart';
-import 'package:nyt_news/src/scenes/most_shared/presentation/bloc/shared_bloc.dart';
+import 'package:nyt_news/src/scenes/most_viewed/presentation/bloc/viewed_bloc.dart';
 
-class SharedPage extends StatefulWidget {
-  const SharedPage({
+class ViewedPage extends StatefulWidget {
+  const ViewedPage({
     Key key,
   }) : super(key: key);
 
   @override
-  _SharedPageState createState() => _SharedPageState();
+  _ViewedPageState createState() => _ViewedPageState();
 }
 
-class _SharedPageState extends State<SharedPage> {
+class _ViewedPageState extends State<ViewedPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<SharedBloc>(context).add(FetchSharedArticlesEvent());
+    BlocProvider.of<ViewedBloc>(context).add(FetchViewedArticlesEvent());
   }
 
   void _onClickRefreshButton() {
-    BlocProvider.of<SharedBloc>(context).add(FetchSharedArticlesEvent());
+    BlocProvider.of<ViewedBloc>(context).add(FetchViewedArticlesEvent());
   }
 
   @override
@@ -37,16 +37,16 @@ class _SharedPageState extends State<SharedPage> {
         ],
       ),
       body: Center(
-        child: BlocBuilder<SharedBloc, SharedState>(
+        child: BlocBuilder<ViewedBloc, ViewedState>(
           builder: (context, state) {
-            if (state is SharedLoadingState) {
+            if (state is ViewedLoadingState) {
               return const LoadingPage();
-            } else if (state is SharedLoadedState) {
+            } else if (state is ViewedLoadedState) {
               final items = state.news;
               return _buildList(items);
-            } else if (state is SharedErrorState) {
+            } else if (state is ViewedErrorState) {
               return const ErrorPage();
-            } else if (state is SharedInitialState) {
+            } else if (state is ViewedInitialState) {
               return Container();
             } else {
               return Container();

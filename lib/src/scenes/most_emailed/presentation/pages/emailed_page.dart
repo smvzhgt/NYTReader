@@ -47,7 +47,7 @@ class _EmailedPageState extends State<EmailedPage> {
             } else if (state is EmailedErrorState) {
               return const ErrorPage();
             } else if (state is EmailedInitialState) {
-              return Text('EMPTY');
+              return Container();
             } else {
               return Container();
             }

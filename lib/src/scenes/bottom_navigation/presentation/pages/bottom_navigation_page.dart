@@ -10,6 +10,11 @@ import 'package:nyt_news/src/scenes/most_shared/data/repositories/shared_reposit
 import 'package:nyt_news/src/scenes/most_shared/domain/interactor/shared_interactor.dart';
 import 'package:nyt_news/src/scenes/most_shared/presentation/bloc/shared_bloc.dart';
 import 'package:nyt_news/src/scenes/most_shared/presentation/pages/shared_page.dart';
+import 'package:nyt_news/src/scenes/most_viewed/data/datasources/viewed_remote_data_source.dart';
+import 'package:nyt_news/src/scenes/most_viewed/data/repositories/viewed_repository.dart';
+import 'package:nyt_news/src/scenes/most_viewed/domain/interactor/viewed_interactor.dart';
+import 'package:nyt_news/src/scenes/most_viewed/presentation/bloc/viewed_bloc.dart';
+import 'package:nyt_news/src/scenes/most_viewed/presentation/pages/viewed_page.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   const BottomNavigationPage({Key key}) : super(key: key);
@@ -30,9 +35,11 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
           SharedRepositoryImpl(SharedRemoteDataSourceImpl()))),
       child: const SharedPage(),
     ),
-    Scaffold(
-      body: Center(child: const Text('Most Viewed Articles')),
-    ),
+    BlocProvider(
+      create: (context) => ViewedBloc(ViewedInteractorImpl(
+          ViewedRepositoryImpl(ViewedRemoteDataSourceImpl()))),
+      child: const ViewedPage(),
+    )
   ];
 
   int _currentIndex = 0;
