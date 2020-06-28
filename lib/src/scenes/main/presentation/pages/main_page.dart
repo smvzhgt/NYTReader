@@ -22,6 +22,10 @@ class _MainPageState extends State<MainPage> {
     BlocProvider.of<MainBloc>(context).add(FetchNewsEvent());
   }
 
+  void _onClickRefreshButton() {
+    BlocProvider.of<MainBloc>(context).add(FetchNewsEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,10 +33,7 @@ class _MainPageState extends State<MainPage> {
         title: Text('New York Times'),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.refresh),
-              onPressed: () {
-                BlocProvider.of<MainBloc>(context).add(FetchNewsEvent());
-              })
+              icon: Icon(Icons.refresh), onPressed: _onClickRefreshButton)
         ],
       ),
       body: Center(
@@ -52,17 +53,6 @@ class _MainPageState extends State<MainPage> {
             }
           },
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.email), title: Text('Emailed')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.share), title: Text('Shared')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.picture_in_picture), title: Text('Viewed')),
-        ],
       ),
     );
   }
