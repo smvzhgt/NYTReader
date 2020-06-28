@@ -5,6 +5,11 @@ import 'package:nyt_news/src/scenes/most_emailed/data/repositories/emailed_repos
 import 'package:nyt_news/src/scenes/most_emailed/domain/interactor/emailed_interactor.dart';
 import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.dart';
 import 'package:nyt_news/src/scenes/most_emailed/presentation/pages/emailed_page.dart';
+import 'package:nyt_news/src/scenes/most_shared/data/datasources/shared_remote_data_source.dart';
+import 'package:nyt_news/src/scenes/most_shared/data/repositories/shared_repository.dart';
+import 'package:nyt_news/src/scenes/most_shared/domain/interactor/shared_interactor.dart';
+import 'package:nyt_news/src/scenes/most_shared/presentation/bloc/shared_bloc.dart';
+import 'package:nyt_news/src/scenes/most_shared/presentation/pages/shared_page.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   const BottomNavigationPage({Key key}) : super(key: key);
@@ -20,8 +25,10 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
           EmailedRepositoryImpl(EmailedRemoteDataSourceImpl()))),
       child: const EmailedPage(),
     ),
-    Scaffold(
-      body: Center(child: const Text('Most Shared Articles')),
+    BlocProvider(
+      create: (context) => SharedBloc(SharedInteractorImpl(
+          SharedRepositoryImpl(SharedRemoteDataSourceImpl()))),
+      child: const SharedPage(),
     ),
     Scaffold(
       body: Center(child: const Text('Most Viewed Articles')),

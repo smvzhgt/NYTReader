@@ -3,27 +3,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nyt_news/core/pages/error_page.dart';
 import 'package:nyt_news/core/pages/loading_page.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
-import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.dart';
 import 'package:nyt_news/core/widgets/article_row_widget.dart';
+import 'package:nyt_news/src/scenes/most_shared/presentation/bloc/shared_bloc.dart';
 
-class EmailedPage extends StatefulWidget {
-  const EmailedPage({
+class SharedPage extends StatefulWidget {
+  const SharedPage({
     Key key,
   }) : super(key: key);
 
   @override
-  _EmailedPageState createState() => _EmailedPageState();
+  _SharedPageState createState() => _SharedPageState();
 }
 
-class _EmailedPageState extends State<EmailedPage> {
+class _SharedPageState extends State<SharedPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<EmailedBloc>(context).add(FetchNewsEvent());
+    BlocProvider.of<SharedBloc>(context).add(FetchSharedArticlesEvent());
   }
 
   void _onClickRefreshButton() {
-    BlocProvider.of<EmailedBloc>(context).add(FetchNewsEvent());
+    BlocProvider.of<SharedBloc>(context).add(FetchSharedArticlesEvent());
   }
 
   @override
@@ -37,16 +37,16 @@ class _EmailedPageState extends State<EmailedPage> {
         ],
       ),
       body: Center(
-        child: BlocBuilder<EmailedBloc, EmailedState>(
+        child: BlocBuilder<SharedBloc, SharedState>(
           builder: (context, state) {
-            if (state is EmailedLoadingState) {
+            if (state is SharedLoadingState) {
               return const LoadingPage();
-            } else if (state is EmailedLoadedState) {
+            } else if (state is SharedLoadedState) {
               final items = state.news;
               return _buildList(items);
-            } else if (state is EmailedErrorState) {
+            } else if (state is SharedErrorState) {
               return const ErrorPage();
-            } else if (state is EmailedInitialState) {
+            } else if (state is SharedInitialState) {
               return Text('EMPTY');
             } else {
               return Container();

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:nyt_news/src/scenes/most_emailed/domain/entities/article_entity.dart';
+import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/src/scenes/most_emailed/domain/interactor/emailed_interactor.dart';
 
 part 'emailed_event.dart';
