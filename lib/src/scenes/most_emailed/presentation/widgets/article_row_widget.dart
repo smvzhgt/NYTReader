@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nyt_news/src/scenes/main/domain/entities/article_entity.dart';
+import 'package:nyt_news/src/scenes/most_emailed/domain/entities/article_entity.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ArticleRowWidget extends StatelessWidget {

@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nyt_news/core/pages/error_page.dart';
 import 'package:nyt_news/core/pages/loading_page.dart';
-import 'package:nyt_news/src/scenes/main/domain/entities/article_entity.dart';
-import 'package:nyt_news/src/scenes/main/presentation/bloc/main_bloc.dart';
-import 'package:nyt_news/src/scenes/main/presentation/widgets/article_row_widget.dart';
+import 'package:nyt_news/src/scenes/most_emailed/domain/entities/article_entity.dart';
+import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.dart';
+import 'package:nyt_news/src/scenes/most_emailed/presentation/widgets/article_row_widget.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({
+class EmailedPage extends StatefulWidget {
+  const EmailedPage({
     Key key,
   }) : super(key: key);
 
   @override
-  _MainPageState createState() => _MainPageState();
+  _EmailedPageState createState() => _EmailedPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _EmailedPageState extends State<EmailedPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<MainBloc>(context).add(FetchNewsEvent());
+    BlocProvider.of<EmailedBloc>(context).add(FetchNewsEvent());
   }
 
   void _onClickRefreshButton() {
-    BlocProvider.of<MainBloc>(context).add(FetchNewsEvent());
+    BlocProvider.of<EmailedBloc>(context).add(FetchNewsEvent());
   }
 
   @override
@@ -37,16 +37,16 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
       body: Center(
-        child: BlocBuilder<MainBloc, MainState>(
+        child: BlocBuilder<EmailedBloc, EmailedState>(
           builder: (context, state) {
-            if (state is MainLoadingState) {
+            if (state is EmailedLoadingState) {
               return const LoadingPage();
-            } else if (state is MainLoadedState) {
+            } else if (state is EmailedLoadedState) {
               final items = state.news;
               return _buildList(items);
-            } else if (state is MainErrorState) {
+            } else if (state is EmailedErrorState) {
               return const ErrorPage();
-            } else if (state is MainInitialState) {
+            } else if (state is EmailedInitialState) {
               return Text('EMPTY');
             } else {
               return Container();

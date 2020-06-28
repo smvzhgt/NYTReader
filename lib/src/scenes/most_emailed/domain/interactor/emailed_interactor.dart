@@ -1,16 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:nyt_news/core/exceptions.dart';
-import 'package:nyt_news/src/scenes/main/domain/entities/article_entity.dart';
-import 'package:nyt_news/src/scenes/main/domain/repository/main_repository.dart';
+import 'package:nyt_news/src/scenes/most_emailed/domain/entities/article_entity.dart';
+import 'package:nyt_news/src/scenes/most_emailed/domain/repository/emailed_repository.dart';
 
-abstract class MainInteractor {
+abstract class EmailedInteractor {
   Future<Either<NetworkException, List<ArticleEntity>>> fetchNews();
 }
 
-class MainInteractorImpl implements MainInteractor {
-  final MainRepository repository;
+class EmailedInteractorImpl implements EmailedInteractor {
+  final EmailedRepository repository;
 
-  MainInteractorImpl(this.repository);
+  EmailedInteractorImpl(this.repository);
 
   @override
   Future<Either<NetworkException, List<ArticleEntity>>> fetchNews() async {

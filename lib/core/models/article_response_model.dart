@@ -1,4 +1,4 @@
-import 'package:nyt_news/src/scenes/main/domain/entities/article_entity.dart';
+import 'package:nyt_news/src/scenes/most_emailed/domain/entities/article_entity.dart';
 
 class ArticleResponseModel {
   String _status;

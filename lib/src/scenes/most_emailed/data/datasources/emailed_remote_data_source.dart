@@ -7,11 +7,11 @@ import 'package:nyt_news/core/constants.dart';
 import 'package:nyt_news/core/exceptions.dart';
 import 'package:nyt_news/core/models/article_response_model.dart';
 
-abstract class MainRemoteDataSource {
+abstract class EmailedRemoteDataSource {
   Future<Either<NetworkException, List<ArticleModel>>> fetchNews();
 }
 
-class MainRemoteDataSourceImpl implements MainRemoteDataSource {
+class EmailedRemoteDataSourceImpl implements EmailedRemoteDataSource {
   Client _client = Client();
   final _days = 30;
   final _apiKey = Constants.API_KEY;

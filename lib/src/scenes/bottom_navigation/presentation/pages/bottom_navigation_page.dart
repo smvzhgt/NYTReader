@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nyt_news/src/scenes/main/data/datasources/main_remote_data_source.dart';
-import 'package:nyt_news/src/scenes/main/data/repositories/main_repository.dart';
-import 'package:nyt_news/src/scenes/main/domain/interactor/main_interactor.dart';
-import 'package:nyt_news/src/scenes/main/presentation/bloc/main_bloc.dart';
-import 'package:nyt_news/src/scenes/main/presentation/pages/main_page.dart';
+import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_remote_data_source.dart';
+import 'package:nyt_news/src/scenes/most_emailed/data/repositories/emailed_repository.dart';
+import 'package:nyt_news/src/scenes/most_emailed/domain/interactor/emailed_interactor.dart';
+import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.dart';
+import 'package:nyt_news/src/scenes/most_emailed/presentation/pages/emailed_page.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   const BottomNavigationPage({Key key}) : super(key: key);
@@ -16,9 +16,9 @@ class BottomNavigationPage extends StatefulWidget {
 class _BottomNavigationPageState extends State<BottomNavigationPage> {
   final List _pages = [
     BlocProvider(
-      create: (context) => MainBloc(
-          MainInteractorImpl(MainRepositoryImpl(MainRemoteDataSourceImpl()))),
-      child: const MainPage(),
+      create: (context) => EmailedBloc(EmailedInteractorImpl(
+          EmailedRepositoryImpl(EmailedRemoteDataSourceImpl()))),
+      child: const EmailedPage(),
     ),
     Scaffold(
       body: Center(child: const Text('Most Shared Articles')),
