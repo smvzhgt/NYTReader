@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nyt_news/core/api_client/api_client.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_remote_data_source.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/repositories/emailed_repository.dart';
 import 'package:nyt_news/src/scenes/most_emailed/domain/interactor/emailed_interactor.dart';
@@ -27,17 +28,17 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   final List _pages = [
     BlocProvider(
       create: (context) => EmailedBloc(EmailedInteractorImpl(
-          EmailedRepositoryImpl(EmailedRemoteDataSourceImpl()))),
+          EmailedRepositoryImpl(EmailedRemoteDataSourceImpl(ApiClientImpl())))),
       child: const EmailedPage(),
     ),
     BlocProvider(
       create: (context) => SharedBloc(SharedInteractorImpl(
-          SharedRepositoryImpl(SharedRemoteDataSourceImpl()))),
+          SharedRepositoryImpl(SharedRemoteDataSourceImpl(ApiClientImpl())))),
       child: const SharedPage(),
     ),
     BlocProvider(
       create: (context) => ViewedBloc(ViewedInteractorImpl(
-          ViewedRepositoryImpl(ViewedRemoteDataSourceImpl()))),
+          ViewedRepositoryImpl(ViewedRemoteDataSourceImpl(ApiClientImpl())))),
       child: const ViewedPage(),
     )
   ];

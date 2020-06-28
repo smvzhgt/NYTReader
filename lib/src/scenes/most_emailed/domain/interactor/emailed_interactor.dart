@@ -4,7 +4,7 @@ import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/src/scenes/most_emailed/domain/repository/emailed_repository.dart';
 
 abstract class EmailedInteractor {
-  Future<Either<NetworkException, List<ArticleEntity>>> fetchNews();
+  Future<Either<NetworkException, List<ArticleEntity>>> fetchMostEmailedArticles();
 }
 
 class EmailedInteractorImpl implements EmailedInteractor {
@@ -13,8 +13,8 @@ class EmailedInteractorImpl implements EmailedInteractor {
   EmailedInteractorImpl(this.repository);
 
   @override
-  Future<Either<NetworkException, List<ArticleEntity>>> fetchNews() async {
-    final either = await repository.fetchNews();
+  Future<Either<NetworkException, List<ArticleEntity>>> fetchMostEmailedArticles() async {
+    final either = await repository.fetchMostEmailedArticles();
     if (either.isRight()) {
       final articles = either.getOrElse(null);
       final entities = articles.map((e) => e.entity()).toList();

@@ -10,7 +10,7 @@ class EmailedRepositoryImpl implements EmailedRepository {
   EmailedRepositoryImpl(this.emailedRemoteDataSource);
 
   @override
-  Future<Either<NetworkException, List<ArticleModel>>> fetchNews() {
-    return emailedRemoteDataSource.fetchNews();
+  Future<Either<NetworkException, List<ArticleModel>>> fetchMostEmailedArticles() {
+    return emailedRemoteDataSource.fetchMostEmailedArticles();
   }
 }

@@ -22,7 +22,7 @@ class EmailedBloc extends Bloc<EmailedEvent, EmailedState> {
   ) async* {
     if (event is FetchNewsEvent) {
       yield EmailedLoadingState();
-      final either = await interactor.fetchNews();
+      final either = await interactor.fetchMostEmailedArticles();
       if (either.isRight()) {
         final entities = either.getOrElse(null);
         if (entities.isEmpty) {

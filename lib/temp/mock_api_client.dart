@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:nyt_news/core/exceptions.dart';
 import 'package:nyt_news/core/models/article_response_model.dart';
-import 'package:nyt_news/temp/api_client.dart';
+import 'package:nyt_news/core/api_client/api_client.dart';
 
 class MockApiClientImpl implements ApiClient {
   @override
