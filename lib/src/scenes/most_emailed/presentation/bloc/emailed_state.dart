@@ -20,9 +20,9 @@ class EmailedErrorState extends EmailedState {
 }
 
 class EmailedLoadedState extends EmailedState {
-  final List<ArticleEntity> news;
+  final List<ArticleEntity> articles;
 
-  EmailedLoadedState(this.news);
+  EmailedLoadedState(this.articles);
 
   @override
   List<Object> get props => [];

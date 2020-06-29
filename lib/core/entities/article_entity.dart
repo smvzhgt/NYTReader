@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class ArticleEntity {
   int _id;
   String _url;
@@ -17,6 +19,27 @@ class ArticleEntity {
     this._articleAbstract = articleAbstract;
     this._imageUrl = imageUrl;
   }
+
+  factory ArticleEntity.fromRawJson(String str) =>
+      ArticleEntity.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory ArticleEntity.fromJson(Map<String, dynamic> json) => ArticleEntity(
+        url: json["url"],
+        id: json["id"],
+        title: json["title"],
+        articleAbstract: json["article_abstract"],
+        imageUrl: json["image_url"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "url": url,
+        "id": id,
+        "title": title,
+        "article_abstract": articleAbstract,
+        "image_url": imageUrl,
+      };
 
   int get id => _id;
   set id(int id) => _id = id;

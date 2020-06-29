@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nyt_news/core/api_client/api_client.dart';
+import 'package:nyt_news/core/constants.dart';
+import 'package:nyt_news/src/scenes/favorite/data/datasources/favorite_local_data_source.dart';
+import 'package:nyt_news/src/scenes/favorite/data/repositories/favorite_repository.dart';
+import 'package:nyt_news/src/scenes/favorite/domain/interactor/favorite_interactor.dart';
+import 'package:nyt_news/src/scenes/favorite/presentation/bloc/favorite_bloc.dart';
+import 'package:nyt_news/src/scenes/favorite/presentation/pages/favorite_page.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_remote_data_source.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/repositories/emailed_repository.dart';
 import 'package:nyt_news/src/scenes/most_emailed/domain/interactor/emailed_interactor.dart';
@@ -25,6 +31,7 @@ class BottomNavigationPage extends StatefulWidget {
 }
 
 class _BottomNavigationPageState extends State<BottomNavigationPage> {
+  int _currentIndex = 0;
   final List _pages = [
     BlocProvider(
       create: (context) => EmailedBloc(EmailedInteractorImpl(
@@ -40,23 +47,31 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
       create: (context) => ViewedBloc(ViewedInteractorImpl(
           ViewedRepositoryImpl(ViewedRemoteDataSourceImpl(ApiClientImpl())))),
       child: const ViewedPage(),
+    ),
+    BlocProvider(
+      create: (context) => FavoriteBloc(FavoriteInteractorImpl(
+          FavoriteRepositoryImpl(FavoriteLocalDataSourceImpl()))),
+      child: const FavoritePage(),
     )
   ];
 
-  int _currentIndex = 0;
-
   final List<BottomNavigationBarItem> _items = [
-    BottomNavigationBarItem(
-      icon: Icon(Icons.email),
-      title: Text('Emailed'),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.email, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
+      title: const Text(EMAILED_LABEL),
     ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.share),
-      title: Text('Shared'),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.share, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
+      title: const Text(SHARED_LABEL),
     ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.picture_in_picture),
-      title: Text('Viewed'),
+    const BottomNavigationBarItem(
+      icon:
+          Icon(Icons.picture_in_picture, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
+      title: const Text(VIEWED_LABEL),
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.star, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
+      title: const Text(FAVORITE_LABEL),
     ),
   ];
 
@@ -74,6 +89,10 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
           onTap: _onClickItem,
           currentIndex: _currentIndex,
           items: _items,
+          backgroundColor: Colors.white,
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.grey,
+          type: BottomNavigationBarType.fixed,
         ),
         body: _pages[_currentIndex],
       ),

@@ -20,9 +20,9 @@ class SharedErrorState extends SharedState {
 }
 
 class SharedLoadedState extends SharedState {
-  final List<ArticleEntity> news;
+  final List<ArticleEntity> articles;
 
-  SharedLoadedState(this.news);
+  SharedLoadedState(this.articles);
 
   @override
   List<Object> get props => [];

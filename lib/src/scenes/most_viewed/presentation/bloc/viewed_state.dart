@@ -20,9 +20,9 @@ class ViewedErrorState extends ViewedState {
 }
 
 class ViewedLoadedState extends ViewedState {
-  final List<ArticleEntity> news;
+  final List<ArticleEntity> articles;
 
-  ViewedLoadedState(this.news);
+  ViewedLoadedState(this.articles);
 
   @override
   List<Object> get props => [];

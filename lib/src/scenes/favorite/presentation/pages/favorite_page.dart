@@ -5,26 +5,26 @@ import 'package:nyt_news/core/pages/error_page.dart';
 import 'package:nyt_news/core/pages/loading_page.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/widgets/article_row_widget.dart';
-import 'package:nyt_news/src/scenes/most_viewed/presentation/bloc/viewed_bloc.dart';
+import 'package:nyt_news/src/scenes/favorite/presentation/bloc/favorite_bloc.dart';
 
-class ViewedPage extends StatefulWidget {
-  const ViewedPage({
+class FavoritePage extends StatefulWidget {
+  const FavoritePage({
     Key key,
   }) : super(key: key);
 
   @override
-  _ViewedPageState createState() => _ViewedPageState();
+  _FavoritePageState createState() => _FavoritePageState();
 }
 
-class _ViewedPageState extends State<ViewedPage> {
+class _FavoritePageState extends State<FavoritePage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<ViewedBloc>(context).add(FetchViewedArticlesEvent());
+    BlocProvider.of<FavoriteBloc>(context).add(FetchFavoriteArticlesEvent());
   }
 
   void _onClickRefreshButton() {
-    BlocProvider.of<ViewedBloc>(context).add(FetchViewedArticlesEvent());
+    BlocProvider.of<FavoriteBloc>(context).add(FetchFavoriteArticlesEvent());
   }
 
   @override
@@ -38,16 +38,16 @@ class _ViewedPageState extends State<ViewedPage> {
         ],
       ),
       body: Center(
-        child: BlocBuilder<ViewedBloc, ViewedState>(
+        child: BlocBuilder<FavoriteBloc, FavoriteState>(
           builder: (context, state) {
-            if (state is ViewedLoadingState) {
+            if (state is FavoriteLoadingState) {
               return const LoadingPage();
-            } else if (state is ViewedLoadedState) {
+            } else if (state is FavoriteLoadedState) {
               final items = state.articles;
               return _buildList(items);
-            } else if (state is ViewedErrorState) {
+            } else if (state is FavoriteErrorState) {
               return const ErrorPage();
-            } else if (state is ViewedInitialState) {
+            } else if (state is FavoriteInitialState) {
               return Container();
             } else {
               return Container();

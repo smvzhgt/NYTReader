@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nyt_news/core/constants.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,9 +16,23 @@ class ArticleRowWidget extends StatelessWidget {
     }
   }
 
+  Widget _setImageWidget(String url, double height) {
+    if (url == null || url.isEmpty) {
+      return Image.asset(NO_IMAGE_PLACEHOLDER);
+    } else {
+      return Image.network(
+        url,
+        fit: BoxFit.fitHeight,
+        height: height * 0.1,
+        width: height * 0.1,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+
     return Padding(
       padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
       child: GestureDetector(
@@ -26,12 +41,7 @@ class ArticleRowWidget extends StatelessWidget {
           height: height * 0.1,
           child: Row(
             children: <Widget>[
-              Image.network(
-                entity.imageUrl,
-                fit: BoxFit.fitHeight,
-                height: height * 0.1,
-                width: height * 0.1,
-              ),
+              _setImageWidget(entity.imageUrl, height),
               SizedBox(width: 4.0),
               Expanded(
                 child: Column(

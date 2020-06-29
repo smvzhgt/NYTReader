@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nyt_news/core/constants.dart';
 import 'package:nyt_news/core/pages/error_page.dart';
 import 'package:nyt_news/core/pages/loading_page.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
@@ -30,7 +31,7 @@ class _SharedPageState extends State<SharedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('New York Times'),
+        title: const Text(APP_TITLE),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.refresh), onPressed: _onClickRefreshButton)
@@ -42,7 +43,7 @@ class _SharedPageState extends State<SharedPage> {
             if (state is SharedLoadingState) {
               return const LoadingPage();
             } else if (state is SharedLoadedState) {
-              final items = state.news;
+              final items = state.articles;
               return _buildList(items);
             } else if (state is SharedErrorState) {
               return const ErrorPage();
