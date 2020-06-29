@@ -27,3 +27,8 @@ class EmailedLoadedState extends EmailedState {
   @override
   List<Object> get props => [];
 }
+
+class SetFavoriteState extends EmailedState {
+  @override
+  List<Object> get props => [];
+}

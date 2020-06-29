@@ -33,6 +33,8 @@ class EmailedBloc extends Bloc<EmailedEvent, EmailedState> {
       } else {
         yield EmailedErrorState();
       }
+    } else if (event is SetArticleFavoriteEvent) {
+      interactor.saveArticleToDB(event.articleEntity);
     }
   }
 }

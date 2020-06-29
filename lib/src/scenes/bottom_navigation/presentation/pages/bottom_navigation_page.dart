@@ -7,6 +7,7 @@ import 'package:nyt_news/src/scenes/favorite/data/repositories/favorite_reposito
 import 'package:nyt_news/src/scenes/favorite/domain/interactor/favorite_interactor.dart';
 import 'package:nyt_news/src/scenes/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:nyt_news/src/scenes/favorite/presentation/pages/favorite_page.dart';
+import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_local_data_source.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_remote_data_source.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/repositories/emailed_repository.dart';
 import 'package:nyt_news/src/scenes/most_emailed/domain/interactor/emailed_interactor.dart';
@@ -34,8 +35,14 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   int _currentIndex = 0;
   final List _pages = [
     BlocProvider(
-      create: (context) => EmailedBloc(EmailedInteractorImpl(
-          EmailedRepositoryImpl(EmailedRemoteDataSourceImpl(ApiClientImpl())))),
+      create: (context) => EmailedBloc(
+        EmailedInteractorImpl(
+          EmailedRepositoryImpl(
+            EmailedRemoteDataSourceImpl(ApiClientImpl()),
+            EmailedLocalDataSourceImpl(),
+          ),
+        ),
+      ),
       child: const EmailedPage(),
     ),
     BlocProvider(
