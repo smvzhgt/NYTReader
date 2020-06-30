@@ -1,7 +1,5 @@
 class Constants {
-  // static const API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-  static const API_KEY = "SQrn2tIcRuqUUXegjnlQqAJucImj5LAZ";
-
+  static const API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 }
 
 const BOTTOM_NAVIGATION_BAR_ICON_SIZE = 25.0;

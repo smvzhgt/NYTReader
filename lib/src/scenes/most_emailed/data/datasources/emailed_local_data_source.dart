@@ -10,11 +10,22 @@ abstract class EmailedLocalDataSource {
 }
 
 class EmailedLocalDataSourceImpl implements EmailedLocalDataSource {
+
+  Future _saveToDb(ArticleEntity article) async {
+    final dbArticle = await DBClient.db.getArticle(article.id);
+    if (dbArticle == null) {
+      await DBClient.db.insertNewArticle(article);
+    } else {
+      await DBClient.db.updateArticle(article);
+    }
+  }
+
   @override
   Future<Either<DBException, EmptyResult>> saveArticleToDB(
       ArticleEntity article) async {
     try {
-      await DBClient.db.insertNewArticle(article);
+      // await DBClient.db.insertNewArticle(article);
+      await _saveToDb(article);
       return Right(EmptyResult());
     } on Exception {
       return Left(DBException());

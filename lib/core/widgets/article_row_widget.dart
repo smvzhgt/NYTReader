@@ -69,6 +69,22 @@ class ArticleRowWidget extends StatelessWidget {
                     )
                   ],
                 ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      
+                    },
+                    child: Container(
+                      child: Icon(
+                        Icons.star_border,
+                        size: 35.0,
+                      ),
+                    ),
+                  ),
+                ],
               )
             ],
           ),
