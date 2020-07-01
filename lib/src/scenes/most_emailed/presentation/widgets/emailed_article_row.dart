@@ -1,150 +1,88 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nyt_news/core/constants.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
-import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class EmailedArticleRow extends StatefulWidget {
-  final ArticleEntity entity;
-  EmailedArticleRow({Key key, this.entity}) : super(key: key);
+class EmailedArticleRow extends StatelessWidget {
+  final ArticleEntity article;
 
-  @override
-  _EmailedArticleRowState createState() => _EmailedArticleRowState();
-}
+  const EmailedArticleRow({Key key, this.article}) : super(key: key);
 
-class _EmailedArticleRowState extends State<EmailedArticleRow> {
-  bool isFavorite = true;
-  final imageSize = 0.17;
+  Widget _imageContainer(String url) {
+    return Container(
+      width: 80.0,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 2.0, bottom: 2.0, right: 2.0),
+        child: ClipOval(
+            child: article.imageUrl.isNotEmpty
+                ? Image.network(
+                    article.imageUrl,
+                    height: 80.0,
+                    width: 80.0,
+                    fit: BoxFit.cover,
+                  )
+                : Image(image: AssetImage(NO_IMAGE_PLACEHOLDER))),
+      ),
+    );
+  }
+
+  Widget _titleContainer(ArticleEntity entity) {
+    return Expanded(
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(article.title,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16.0,
+            )),
+      ),
+      flex: 1,
+    );
+  }
+
+  Widget _contantContainer(ArticleEntity entity) {
+    return Expanded(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Text(
+              article.articleAbstract,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 3,
+            ),
+          ),
+          Icon(
+            Icons.star_border,
+            size: 30.0,
+            color: Colors.yellow,
+          ),
+        ],
+      ),
+      flex: 2,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final heightImage = width * 0.2;
-
-    void _onClickRow(ArticleEntity entity) async {
-      final url = entity.url;
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
-
-    Widget _imageContainer(String url, double height) {
-      if (url == null || url.isEmpty) {
-        return Container(
-          height: height * imageSize,
-          width: height * imageSize,
-          child: Image.asset(NO_IMAGE_PLACEHOLDER),
-        );
-      } else {
-        return Container(
-          height: height * imageSize,
-          width: height * imageSize,
-          child: Image.network(
-            url,
-            fit: BoxFit.fitHeight,
-            height: height * imageSize,
-            width: height * imageSize,
-          ),
-        );
-      }
-    }
-
-    Widget _titleContainer(ArticleEntity entity) {
-      return Text(
-        entity.title,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 16.0,
-        ),
-      );
-    }
-
-    Widget _contantContainer(ArticleEntity entity) {
-      return Expanded(
-        child: Container(
-          child: Text(
-            entity.articleAbstract,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      );
-    }
-
-    Widget _buttonContainer() {
-      return Container(
-        // color: Colors.green,
-        height: 30.0,
-        width: 30.0,
-        child: Visibility(child: Icon(
-                Icons.star_border,
-                size: 30.0,
-                color: Colors.yellow,
-              ),
-              visible: isFavorite,),
-      );
-        // return Icon(
-        //       Icons.star_border,
-        //       size: 35.0,
-        //       color: Colors.yellow,
-        //     );
-            
-
-      // return isFavorite
-      //     ? Icon(
-      //         Icons.star_border,
-      //         size: 35.0,
-      //         color: Colors.yellow,
-      //       )
-      //     : Icon(
-      //         Icons.star_border,
-      //         size: 35.0,
-      //         color: Colors.grey,
-      //       );
-    }
-
-    return GestureDetector(
-      onTap: () {
-        _onClickRow(widget.entity);
-      },
+    return Padding(
+      padding: const EdgeInsets.only(top: 5.0),
       child: Container(
-        height: heightImage,
-        child: Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: Row(
-            children: <Widget>[
-              _imageContainer(widget.entity.imageUrl, width),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      _titleContainer(widget.entity),
-                      Row(
-                        children: <Widget>[
-                          _contantContainer(widget.entity),
-                          GestureDetector(
-                            onTap: () {
-                              BlocProvider.of<EmailedBloc>(context).add(SetArticleFavoriteEvent(widget.entity));
-                              setState(() {
-                                isFavorite = !isFavorite;
-                              });
-                            },
-                            child: _buttonContainer(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
+        height: 80.0,
+        child: Row(
+          children: <Widget>[
+            _imageContainer(article.imageUrl),
+            SizedBox(
+              width: 3.0,
+            ),
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  _titleContainer(article),
+                  _contantContainer(article)
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
