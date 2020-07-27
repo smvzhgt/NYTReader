@@ -5,7 +5,6 @@ import 'package:nyt_news/core/pages/error_page.dart';
 import 'package:nyt_news/core/pages/loading_page.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.dart';
-import 'package:nyt_news/src/scenes/most_emailed/presentation/widgets/emailed_article_row_3.dart';
 import 'package:nyt_news/src/scenes/most_emailed/presentation/widgets/emailed_article_row.dart';
 
 class EmailedPage extends StatefulWidget {
