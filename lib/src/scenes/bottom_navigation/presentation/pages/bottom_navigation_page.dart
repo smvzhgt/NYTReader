@@ -1,26 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nyt_news/core/api_client/api_client.dart';
 import 'package:nyt_news/core/constants.dart';
-import 'package:nyt_news/src/scenes/favorite/data/datasources/favorite_local_data_source.dart';
-import 'package:nyt_news/src/scenes/favorite/data/repositories/favorite_repository.dart';
-import 'package:nyt_news/src/scenes/favorite/domain/interactor/favorite_interactor.dart';
+import 'package:nyt_news/di/injection.dart';
 import 'package:nyt_news/src/scenes/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:nyt_news/src/scenes/favorite/presentation/pages/favorite_page.dart';
-import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_local_data_source.dart';
-import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_remote_data_source.dart';
-import 'package:nyt_news/src/scenes/most_emailed/data/repositories/emailed_repository.dart';
-import 'package:nyt_news/src/scenes/most_emailed/domain/interactor/emailed_interactor.dart';
 import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.dart';
 import 'package:nyt_news/src/scenes/most_emailed/presentation/pages/emailed_page.dart';
-import 'package:nyt_news/src/scenes/most_shared/data/datasources/shared_remote_data_source.dart';
-import 'package:nyt_news/src/scenes/most_shared/data/repositories/shared_repository.dart';
-import 'package:nyt_news/src/scenes/most_shared/domain/interactor/shared_interactor.dart';
 import 'package:nyt_news/src/scenes/most_shared/presentation/bloc/shared_bloc.dart';
 import 'package:nyt_news/src/scenes/most_shared/presentation/pages/shared_page.dart';
-import 'package:nyt_news/src/scenes/most_viewed/data/datasources/viewed_remote_data_source.dart';
-import 'package:nyt_news/src/scenes/most_viewed/data/repositories/viewed_repository.dart';
-import 'package:nyt_news/src/scenes/most_viewed/domain/interactor/viewed_interactor.dart';
 import 'package:nyt_news/src/scenes/most_viewed/presentation/bloc/viewed_bloc.dart';
 import 'package:nyt_news/src/scenes/most_viewed/presentation/pages/viewed_page.dart';
 
@@ -35,29 +22,19 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   int _currentIndex = 0;
   final List _pages = [
     BlocProvider(
-      create: (context) => EmailedBloc(
-        EmailedInteractorImpl(
-          EmailedRepositoryImpl(
-            EmailedRemoteDataSourceImpl(ApiClientImpl()),
-            EmailedLocalDataSourceImpl(),
-          ),
-        ),
-      ),
+      create: (context) => sl<EmailedBloc>(),
       child: const EmailedPage(),
     ),
     BlocProvider(
-      create: (context) => SharedBloc(SharedInteractorImpl(
-          SharedRepositoryImpl(SharedRemoteDataSourceImpl(ApiClientImpl())))),
+      create: (context) => sl<SharedBloc>(),
       child: const SharedPage(),
     ),
     BlocProvider(
-      create: (context) => ViewedBloc(ViewedInteractorImpl(
-          ViewedRepositoryImpl(ViewedRemoteDataSourceImpl(ApiClientImpl())))),
+      create: (context) => sl<ViewedBloc>(),
       child: const ViewedPage(),
     ),
     BlocProvider(
-      create: (context) => FavoriteBloc(FavoriteInteractorImpl(
-          FavoriteRepositoryImpl(FavoriteLocalDataSourceImpl()))),
+      create: (context) => sl<FavoriteBloc>(),
       child: const FavoritePage(),
     )
   ];

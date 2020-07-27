@@ -26,6 +26,8 @@ dependencies:
   sqflite: ^1.3.0
   # Path provider
   path_provider: ^1.6.11
+  # Dependency injection
+  get_it: ^4.0.2
 
 dev_dependencies:
   flutter_test:

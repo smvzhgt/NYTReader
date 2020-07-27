@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:nyt_news/core/exceptions.dart';
 import 'package:nyt_news/core/models/article_response_model.dart';
 import 'package:nyt_news/core/api_client/api_client.dart';
@@ -11,7 +12,9 @@ abstract class EmailedRemoteDataSource {
 class EmailedRemoteDataSourceImpl implements EmailedRemoteDataSource {
   final ApiClient apiClient;
 
-  EmailedRemoteDataSourceImpl(this.apiClient);
+  EmailedRemoteDataSourceImpl({
+    @required this.apiClient,
+  });
 
   @override
   Future<Either<NetworkException, List<ArticleModel>>>

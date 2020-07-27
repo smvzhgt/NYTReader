@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/src/scenes/most_emailed/domain/interactor/emailed_interactor.dart';
 
@@ -11,7 +12,7 @@ part 'emailed_state.dart';
 class EmailedBloc extends Bloc<EmailedEvent, EmailedState> {
   final EmailedInteractor interactor;
 
-  EmailedBloc(this.interactor);
+  EmailedBloc({@required this.interactor});
 
   @override
   EmailedState get initialState => EmailedInitialState();

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/src/scenes/most_shared/domain/interactor/shared_interactor.dart';
 
@@ -11,7 +12,7 @@ part 'shared_state.dart';
 class SharedBloc extends Bloc<SharedEvent, SharedState> {
   final SharedInteractor interactor;
 
-  SharedBloc(this.interactor);
+  SharedBloc({@required this.interactor});
 
   @override
   SharedState get initialState => SharedInitialState();

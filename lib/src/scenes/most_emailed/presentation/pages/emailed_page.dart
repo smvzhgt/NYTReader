@@ -20,10 +20,10 @@ class _EmailedPageState extends State<EmailedPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<EmailedBloc>(context).add(FetchNewsEvent());
+    _fetchArticles();
   }
 
-  void _onClickRefreshButton() {
+  void _fetchArticles() {
     BlocProvider.of<EmailedBloc>(context).add(FetchNewsEvent());
   }
 
@@ -34,7 +34,7 @@ class _EmailedPageState extends State<EmailedPage> {
         title: const Text(APP_TITLE),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.refresh), onPressed: _onClickRefreshButton)
+              icon: Icon(Icons.refresh), onPressed: _fetchArticles)
         ],
       ),
       body: Center(

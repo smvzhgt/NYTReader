@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/exceptions.dart';
 import 'package:nyt_news/core/result_type.dart';
@@ -10,7 +11,10 @@ class EmailedRepositoryImpl implements EmailedRepository {
   final EmailedRemoteDataSource remoteDataSource;
   final EmailedLocalDataSource localDataSource;
 
-  EmailedRepositoryImpl(this.remoteDataSource, this.localDataSource);
+  EmailedRepositoryImpl({
+    @required this.remoteDataSource,
+    this.localDataSource,
+  });
 
   @override
   Future<Either<NetworkException, List<ArticleEntity>>>

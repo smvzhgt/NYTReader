@@ -20,22 +20,13 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<FavoriteBloc>(context).add(FetchFavoriteArticlesEvent());
   }
-
-  // void _onClickRefreshButton() {
-  //   BlocProvider.of<FavoriteBloc>(context).add(FetchFavoriteArticlesEvent());
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(APP_TITLE),
-        // actions: <Widget>[
-        //   IconButton(
-        //       icon: Icon(Icons.refresh), onPressed: _onClickRefreshButton)
-        // ],
       ),
       body: Center(
         child: BlocBuilder<FavoriteBloc, FavoriteState>(

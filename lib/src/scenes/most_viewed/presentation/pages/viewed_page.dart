@@ -20,10 +20,10 @@ class _ViewedPageState extends State<ViewedPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<ViewedBloc>(context).add(FetchViewedArticlesEvent());
+    _fetchArticles();
   }
 
-  void _onClickRefreshButton() {
+  void _fetchArticles() {
     BlocProvider.of<ViewedBloc>(context).add(FetchViewedArticlesEvent());
   }
 
@@ -34,7 +34,7 @@ class _ViewedPageState extends State<ViewedPage> {
         title: const Text(APP_TITLE),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.refresh), onPressed: _onClickRefreshButton)
+              icon: Icon(Icons.refresh), onPressed: _fetchArticles)
         ],
       ),
       body: Center(

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:nyt_news/core/exceptions.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/result_type.dart';
@@ -14,7 +15,9 @@ abstract class EmailedInteractor {
 class EmailedInteractorImpl implements EmailedInteractor {
   final EmailedRepository repository;
 
-  EmailedInteractorImpl(this.repository);
+  EmailedInteractorImpl({
+    @required this.repository,
+  });
 
   @override
   Future<Either<NetworkException, List<ArticleEntity>>>

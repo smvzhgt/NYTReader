@@ -20,10 +20,10 @@ class _SharedPageState extends State<SharedPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<SharedBloc>(context).add(FetchSharedArticlesEvent());
+    _fetchArticles();
   }
 
-  void _onClickRefreshButton() {
+  void _fetchArticles() {
     BlocProvider.of<SharedBloc>(context).add(FetchSharedArticlesEvent());
   }
 
@@ -34,7 +34,7 @@ class _SharedPageState extends State<SharedPage> {
         title: const Text(APP_TITLE),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.refresh), onPressed: _onClickRefreshButton)
+              icon: Icon(Icons.refresh), onPressed: _fetchArticles)
         ],
       ),
       body: Center(
