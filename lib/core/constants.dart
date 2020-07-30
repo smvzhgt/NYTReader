@@ -10,5 +10,5 @@ const EMAILED_LABEL = 'Emailed';
 const SHARED_LABEL = 'Shared';
 const VIEWED_LABEL = 'Viewed';
 const FAVORITE_LABEL = 'Favorite';
-const APP_TITLE = 'New York Times';
+const APP_TITLE = 'New York Times Reader';
 const ERROR_LOADING_DATA_LABEL = 'Error loading articles';

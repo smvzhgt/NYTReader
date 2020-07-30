@@ -12,7 +12,10 @@ import 'package:nyt_news/src/scenes/most_viewed/presentation/bloc/viewed_bloc.da
 import 'package:nyt_news/src/scenes/most_viewed/presentation/pages/viewed_page.dart';
 
 class BottomNavigationPage extends StatefulWidget {
-  const BottomNavigationPage({Key key}) : super(key: key);
+  static const String routeName = '/';
+  const BottomNavigationPage({
+    Key key,
+  }) : super(key: key);
 
   @override
   _BottomNavigationPageState createState() => _BottomNavigationPageState();
