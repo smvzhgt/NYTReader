@@ -33,8 +33,7 @@ class _ViewedPageState extends State<ViewedPage> {
       appBar: AppBar(
         title: const Text(APP_TITLE),
         actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.refresh), onPressed: _fetchArticles)
+          IconButton(icon: Icon(Icons.refresh), onPressed: _fetchArticles)
         ],
       ),
       body: Center(

@@ -31,15 +31,15 @@ class ArticleResponseModel {
     _copyright = json['copyright'];
     _numResults = json['num_results'];
     if (json['results'] != null) {
-      _articles = new List<ArticleModel>();
+      _articles = List<ArticleModel>.empty();
       json['results'].forEach((v) {
-        _articles.add(new ArticleModel.fromJson(v));
+        _articles.add(ArticleModel.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['status'] = this._status;
     data['copyright'] = this._copyright;
     data['num_results'] = this._numResults;
@@ -189,16 +189,16 @@ class ArticleModel extends ArticleEntity {
     _perFacet = json['per_facet'].cast<String>();
     _geoFacet = json['geo_facet'].cast<String>();
     if (json['media'] != null) {
-      _media = new List<Media>();
+      _media = List<Media>.empty();
       json['media'].forEach((v) {
-        _media.add(new Media.fromJson(v));
+        _media.add(Media.fromJson(v));
       });
     }
     _etaId = json['eta_id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['uri'] = this._uri;
     data['url'] = this._url;
     data['id'] = this._id;
@@ -287,15 +287,15 @@ class Media {
     _copyright = json['copyright'];
     _approvedForSyndication = json['approved_for_syndication'];
     if (json['media-metadata'] != null) {
-      _mediaMetadata = new List<MediaMetadata>();
+      _mediaMetadata = List<MediaMetadata>.empty();
       json['media-metadata'].forEach((v) {
-        _mediaMetadata.add(new MediaMetadata.fromJson(v));
+        _mediaMetadata.add(MediaMetadata.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['type'] = this._type;
     data['subtype'] = this._subtype;
     data['caption'] = this._caption;
@@ -339,7 +339,7 @@ class MediaMetadata {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['url'] = this._url;
     data['format'] = this._format;
     data['height'] = this._height;

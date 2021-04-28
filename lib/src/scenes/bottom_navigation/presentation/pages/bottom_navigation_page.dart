@@ -45,20 +45,20 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   final List<BottomNavigationBarItem> _items = [
     const BottomNavigationBarItem(
       icon: Icon(Icons.email, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
-      title: const Text(EMAILED_LABEL),
+      label: EMAILED_LABEL,
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.share, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
-      title: const Text(SHARED_LABEL),
+      label: SHARED_LABEL,
     ),
     const BottomNavigationBarItem(
       icon:
           Icon(Icons.picture_in_picture, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
-      title: const Text(VIEWED_LABEL),
+      label: VIEWED_LABEL,
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.star, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
-      title: const Text(FAVORITE_LABEL),
+      label: FAVORITE_LABEL,
     ),
   ];
 
