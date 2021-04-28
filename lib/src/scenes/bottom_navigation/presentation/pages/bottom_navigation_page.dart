@@ -10,6 +10,7 @@ import 'package:nyt_news/src/scenes/most_shared/presentation/bloc/shared_bloc.da
 import 'package:nyt_news/src/scenes/most_shared/presentation/pages/shared_page.dart';
 import 'package:nyt_news/src/scenes/most_viewed/presentation/bloc/viewed_bloc.dart';
 import 'package:nyt_news/src/scenes/most_viewed/presentation/pages/viewed_page.dart';
+import 'package:nyt_news/generated/l10n.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   static const String routeName = '/';
@@ -42,25 +43,27 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
     )
   ];
 
-  final List<BottomNavigationBarItem> _items = [
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.email, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
-      label: EMAILED_LABEL,
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.share, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
-      label: SHARED_LABEL,
-    ),
-    const BottomNavigationBarItem(
-      icon:
-          Icon(Icons.picture_in_picture, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
-      label: VIEWED_LABEL,
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.star, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
-      label: FAVORITE_LABEL,
-    ),
-  ];
+  List<BottomNavigationBarItem> _getItems(BuildContext context) {
+    return [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.email, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
+        label: S.of(context).emailed_label,
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.share, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
+        label: S.of(context).shared_label,
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.picture_in_picture,
+            size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
+        label: S.of(context).viewed_label,
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.star, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
+        label: S.of(context).favorite_label,
+      )
+    ];
+  }
 
   void _onClickItem(int index) {
     setState(() {
@@ -75,7 +78,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
         bottomNavigationBar: BottomNavigationBar(
           onTap: _onClickItem,
           currentIndex: _currentIndex,
-          items: _items,
+          items: _getItems(context),
           backgroundColor: Colors.white,
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.grey,

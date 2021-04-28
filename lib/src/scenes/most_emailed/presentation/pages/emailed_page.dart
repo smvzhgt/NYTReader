@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nyt_news/core/constants.dart';
+import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/pages/error_page.dart';
 import 'package:nyt_news/core/pages/loading_page.dart';
-import 'package:nyt_news/core/entities/article_entity.dart';
+import 'package:nyt_news/generated/l10n.dart';
 import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.dart';
 import 'package:nyt_news/src/scenes/most_emailed/presentation/widgets/emailed_article_row.dart';
 
@@ -31,7 +31,7 @@ class _EmailedPageState extends State<EmailedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(APP_TITLE),
+        title: Text(S.of(context).app_title),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.refresh), onPressed: _fetchArticles)

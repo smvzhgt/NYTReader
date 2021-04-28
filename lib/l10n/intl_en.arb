@@ -1,0 +1,10 @@
+{
+  "emailed_label":"Emailed",
+  "shared_label":"Shared",
+  "viewed_label":"Viewed",
+  "favorite_label":"Favorite",
+  "app_title":"New York Times Reader",
+  "error_loading_data_label":"Error loading articles"
+}
+
+

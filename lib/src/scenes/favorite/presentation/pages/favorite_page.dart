@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nyt_news/core/constants.dart';
+import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/pages/error_page.dart';
 import 'package:nyt_news/core/pages/loading_page.dart';
-import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/widgets/article_row_widget.dart';
+import 'package:nyt_news/generated/l10n.dart';
 import 'package:nyt_news/src/scenes/favorite/presentation/bloc/favorite_bloc.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -26,7 +26,7 @@ class _FavoritePageState extends State<FavoritePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(APP_TITLE),
+        title: Text(S.of(context).app_title),
       ),
       body: Center(
         child: BlocBuilder<FavoriteBloc, FavoriteState>(
