@@ -31,7 +31,7 @@ class ArticleResponseModel {
     _copyright = json['copyright'];
     _numResults = json['num_results'];
     if (json['results'] != null) {
-      _articles = List<ArticleModel>.empty();
+      _articles = List<ArticleModel>.empty(growable: true);
       json['results'].forEach((v) {
         _articles.add(ArticleModel.fromJson(v));
       });
@@ -189,7 +189,7 @@ class ArticleModel extends ArticleEntity {
     _perFacet = json['per_facet'].cast<String>();
     _geoFacet = json['geo_facet'].cast<String>();
     if (json['media'] != null) {
-      _media = List<Media>.empty();
+      _media = List<Media>.empty(growable: true);
       json['media'].forEach((v) {
         _media.add(Media.fromJson(v));
       });
@@ -287,7 +287,7 @@ class Media {
     _copyright = json['copyright'];
     _approvedForSyndication = json['approved_for_syndication'];
     if (json['media-metadata'] != null) {
-      _mediaMetadata = List<MediaMetadata>.empty();
+      _mediaMetadata = List<MediaMetadata>.empty(growable: true);
       json['media-metadata'].forEach((v) {
         _mediaMetadata.add(MediaMetadata.fromJson(v));
       });
