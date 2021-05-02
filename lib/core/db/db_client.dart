@@ -10,7 +10,7 @@ class DBClient {
   DBClient._();
   static final DBClient db = DBClient._();
 
-  static Database _database;
+  static late Database _database;
   Future<Database> get database async {
     if (_database != null) {
       return _database;

@@ -29,7 +29,7 @@ void init() {
   // Most Emailed
 
   // Bloc
-  sl.registerFactory(() => EmailedBloc(interactor: sl()));
+  sl.registerFactory(() => EmailedBloc(EmailedInitialState(), sl()));
   // Interactor
   sl.registerLazySingleton<EmailedInteractor>(
       () => EmailedInteractorImpl(repository: sl()));
@@ -45,12 +45,10 @@ void init() {
     () => EmailedLocalDataSourceImpl(dbClient: sl()),
   );
 
-
-
   // Most Shared
 
   // Bloc
-  sl.registerFactory(() => SharedBloc(interactor: sl()));
+  sl.registerFactory(() => SharedBloc(SharedInitialState(), sl()));
   // Interactor
   sl.registerLazySingleton<SharedInteractor>(
       () => SharedInteractorImpl(repository: sl()));
@@ -61,12 +59,10 @@ void init() {
   sl.registerLazySingleton<SharedRemoteDataSource>(
       () => SharedRemoteDataSourceImpl(apiClient: sl()));
 
-
-
   // Most Viewed
 
   // Bloc
-  sl.registerFactory(() => ViewedBloc(interactor: sl()));
+  sl.registerFactory(() => ViewedBloc(ViewedInitialState(), sl()));
   // Interactor
   sl.registerLazySingleton<ViewedInteractor>(
       () => ViewedInteractorImpl(repository: sl()));
@@ -78,12 +74,10 @@ void init() {
     () => ViewedRemoteDataSourceImpl(apiClient: sl()),
   );
 
-
-
   // Favorite
 
   // Bloc
-  sl.registerFactory(() => FavoriteBloc(interactor: sl()));
+  sl.registerFactory(() => FavoriteBloc(FavoriteInitialState(), sl()));
   // Interactor
   sl.registerLazySingleton<FavoriteInteractor>(
       () => FavoriteInteractorImpl(repository: sl()));
@@ -93,9 +87,8 @@ void init() {
   // LocalDataSource
   sl.registerLazySingleton<FavoriteLocalDataSource>(
       () => FavoriteLocalDataSourceImpl(dbClient: sl()));
-  // DBClient 
+  // DBClient
   sl.registerSingleton(DBClient.db);
-
 
   // ApiClient
   sl.registerLazySingleton<ApiClient>(() => ApiClientImpl());

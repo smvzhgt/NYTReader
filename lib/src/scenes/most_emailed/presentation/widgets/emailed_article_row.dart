@@ -5,15 +5,15 @@ import 'package:nyt_news/core/entities/article_entity.dart';
 class EmailedArticleRow extends StatelessWidget {
   final ArticleEntity article;
 
-  const EmailedArticleRow({Key key, this.article}) : super(key: key);
+  const EmailedArticleRow({Key? key, required this.article}) : super(key: key);
 
-  Widget _imageContainer(String url) {
+  Widget _imageContainer(ArticleEntity article) {
     return Container(
       width: 80.0,
       child: Padding(
         padding: const EdgeInsets.only(top: 2.0, bottom: 2.0, right: 2.0),
         child: ClipOval(
-            child: article.imageUrl.isNotEmpty
+            child: (article.imageUrl.isNotEmpty)
                 ? Image.network(
                     article.imageUrl,
                     height: 80.0,
@@ -70,7 +70,7 @@ class EmailedArticleRow extends StatelessWidget {
         height: 80.0,
         child: Row(
           children: <Widget>[
-            _imageContainer(article.imageUrl),
+            _imageContainer(article),
             SizedBox(
               width: 3.0,
             ),

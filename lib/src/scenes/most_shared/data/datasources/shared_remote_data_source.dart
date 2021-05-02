@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:nyt_news/core/api_client/api_client.dart';
 import 'package:nyt_news/core/exceptions.dart';
 import 'package:nyt_news/core/models/article_response_model.dart';
@@ -13,7 +12,7 @@ class SharedRemoteDataSourceImpl implements SharedRemoteDataSource {
   final ApiClient apiClient;
 
   SharedRemoteDataSourceImpl({
-    @required this.apiClient,
+    required this.apiClient,
   });
 
   @override

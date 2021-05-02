@@ -9,7 +9,7 @@ import 'package:nyt_news/src/scenes/most_shared/presentation/bloc/shared_bloc.da
 
 class SharedPage extends StatefulWidget {
   const SharedPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -33,8 +33,7 @@ class _SharedPageState extends State<SharedPage> {
       appBar: AppBar(
         title: Text(S.of(context).app_title),
         actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.refresh), onPressed: _fetchArticles)
+          IconButton(icon: Icon(Icons.refresh), onPressed: _fetchArticles)
         ],
       ),
       body: Center(

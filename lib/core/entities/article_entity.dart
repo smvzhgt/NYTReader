@@ -1,18 +1,18 @@
 import 'dart:convert';
 
 class ArticleEntity {
-  int _id;
-  String _url;
-  String _title;
-  String _articleAbstract;
-  String _imageUrl;
+  int _id = 0;
+  String _url = "";
+  String _title = "";
+  String _articleAbstract = "";
+  String _imageUrl = "";
 
   ArticleEntity(
-      {int id,
-      String url,
-      String title,
-      String articleAbstract,
-      String imageUrl}) {
+      {required int id,
+      required String url,
+      required String title,
+      required String articleAbstract,
+      required String imageUrl}) {
     this._id = id;
     this._url = url;
     this._title = title;
