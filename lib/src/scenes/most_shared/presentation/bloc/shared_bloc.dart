@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/src/scenes/most_shared/domain/interactor/shared_interactor.dart';
 
@@ -12,10 +11,7 @@ part 'shared_state.dart';
 class SharedBloc extends Bloc<SharedEvent, SharedState> {
   final SharedInteractor interactor;
 
-  SharedBloc({@required this.interactor});
-
-  @override
-  SharedState get initialState => SharedInitialState();
+  SharedBloc(SharedState initialState, this.interactor) : super(initialState);
 
   @override
   Stream<SharedState> mapEventToState(
@@ -25,7 +21,7 @@ class SharedBloc extends Bloc<SharedEvent, SharedState> {
       yield SharedLoadingState();
       final either = await interactor.fetchMostSharedArticles();
       if (either.isRight()) {
-        final entities = either.getOrElse(null);
+        final entities = either.getOrElse(() => List<ArticleEntity>.empty());
         if (entities.isEmpty) {
           yield SharedInitialState();
         } else {

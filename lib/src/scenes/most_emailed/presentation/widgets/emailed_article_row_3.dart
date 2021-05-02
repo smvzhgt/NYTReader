@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class EmailedArticleRow3 extends StatefulWidget {
   final ArticleEntity entity;
-  EmailedArticleRow3({Key key, this.entity}) : super(key: key);
+  EmailedArticleRow3({Key? key, required this.entity}) : super(key: key);
 
   @override
   _EmailedArticleRowState createState() => _EmailedArticleRowState();
@@ -23,15 +23,17 @@ class _EmailedArticleRowState extends State<EmailedArticleRow3> {
     final heightImage = width * 0.2;
 
     void _onClickRow(ArticleEntity entity) async {
-      final url = entity.url;
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
+      if (entity.url.isNotEmpty) {
+        final url = entity.url;
+        if (await canLaunch(url)) {
+          await launch(url);
+        } else {
+          throw 'Could not launch $url';
+        }
       }
     }
 
-    Widget _imageContainer(String url, double height) {
+    Widget _imageContainer(String? url, double height) {
       if (url == null || url.isEmpty) {
         return Container(
           height: height * imageSize,

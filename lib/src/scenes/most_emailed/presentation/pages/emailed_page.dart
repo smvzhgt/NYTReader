@@ -9,7 +9,7 @@ import 'package:nyt_news/src/scenes/most_emailed/presentation/widgets/emailed_ar
 
 class EmailedPage extends StatefulWidget {
   const EmailedPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -33,8 +33,7 @@ class _EmailedPageState extends State<EmailedPage> {
       appBar: AppBar(
         title: Text(S.of(context).app_title),
         actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.refresh), onPressed: _fetchArticles)
+          IconButton(icon: Icon(Icons.refresh), onPressed: _fetchArticles)
         ],
       ),
       body: Center(

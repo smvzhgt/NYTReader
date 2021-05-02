@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nyt_news/core/constants.dart';
 import 'package:nyt_news/di/injection.dart';
+import 'package:nyt_news/generated/l10n.dart';
 import 'package:nyt_news/src/scenes/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:nyt_news/src/scenes/favorite/presentation/pages/favorite_page.dart';
 import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.dart';
@@ -10,12 +11,11 @@ import 'package:nyt_news/src/scenes/most_shared/presentation/bloc/shared_bloc.da
 import 'package:nyt_news/src/scenes/most_shared/presentation/pages/shared_page.dart';
 import 'package:nyt_news/src/scenes/most_viewed/presentation/bloc/viewed_bloc.dart';
 import 'package:nyt_news/src/scenes/most_viewed/presentation/pages/viewed_page.dart';
-import 'package:nyt_news/generated/l10n.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   static const String routeName = '/';
   const BottomNavigationPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

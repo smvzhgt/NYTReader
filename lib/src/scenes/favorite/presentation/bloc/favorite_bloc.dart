@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/src/scenes/favorite/domain/interactor/favorite_interactor.dart';
 
@@ -12,10 +11,8 @@ part 'favorite_state.dart';
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   final FavoriteInteractor interactor;
 
-  FavoriteBloc({@required this.interactor});
-
-  @override
-  FavoriteState get initialState => FavoriteInitialState();
+  FavoriteBloc(FavoriteState initialState, this.interactor)
+      : super(initialState);
 
   @override
   Stream<FavoriteState> mapEventToState(
@@ -25,7 +22,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       yield FavoriteLoadingState();
       final either = await interactor.fetchFavoriteArticles();
       if (either.isRight()) {
-        final articles = either.getOrElse(null);
+        final articles = either.getOrElse(() => List<ArticleEntity>.empty());
         if (articles.isEmpty) {
           yield FavoriteInitialState();
         } else {

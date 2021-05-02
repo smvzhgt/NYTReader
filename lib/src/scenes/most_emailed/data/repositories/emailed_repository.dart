@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/exceptions.dart';
+import 'package:nyt_news/core/models/article_response_model.dart';
 import 'package:nyt_news/core/result_type.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_local_data_source.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_remote_data_source.dart';
@@ -12,8 +12,8 @@ class EmailedRepositoryImpl implements EmailedRepository {
   final EmailedLocalDataSource localDataSource;
 
   EmailedRepositoryImpl({
-    @required this.remoteDataSource,
-    this.localDataSource,
+    required this.remoteDataSource,
+    required this.localDataSource,
   });
 
   @override
@@ -21,7 +21,7 @@ class EmailedRepositoryImpl implements EmailedRepository {
       fetchMostEmailedArticles() async {
     final either = await remoteDataSource.fetchMostEmailedArticles();
     if (either.isRight()) {
-      final listArticles = either.getOrElse(null);
+      final listArticles = either.getOrElse(() => List<ArticleModel>.empty());
       final entities = listArticles.map((e) => e.entity()).toList();
       return Right(entities);
     } else {

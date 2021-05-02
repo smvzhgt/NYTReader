@@ -9,7 +9,7 @@ import 'package:nyt_news/src/scenes/favorite/presentation/bloc/favorite_bloc.dar
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

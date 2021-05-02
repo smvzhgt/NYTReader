@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ArticleRowWidget extends StatelessWidget {
   final ArticleEntity entity;
-  const ArticleRowWidget({Key key, this.entity}) : super(key: key);
+  const ArticleRowWidget({Key? key, required this.entity}) : super(key: key);
 
   void _onClickRow() async {
     final url = entity.url;
@@ -17,7 +17,7 @@ class ArticleRowWidget extends StatelessWidget {
   }
 
   Widget _setImageWidget(String url, double height) {
-    if (url == null || url.isEmpty) {
+    if (url.isEmpty) {
       return Image.asset(NO_IMAGE_PLACEHOLDER);
     } else {
       return Image.network(

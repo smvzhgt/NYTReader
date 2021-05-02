@@ -9,7 +9,7 @@ import 'package:nyt_news/src/scenes/most_viewed/presentation/bloc/viewed_bloc.da
 
 class ViewedPage extends StatefulWidget {
   const ViewedPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
