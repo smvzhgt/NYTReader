@@ -31,7 +31,10 @@ dependencies:
   sqflite: ^2.0.0+3
   # Open link
   url_launcher: ^6.0.3
+  # Localization
   intl: ^0.17.0
+  # Theme
+  adaptive_theme: ^2.2.0
 
 dev_dependencies:
   flutter_test:

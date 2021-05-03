@@ -8,9 +8,7 @@ import 'package:nyt_news/generated/l10n.dart';
 import 'package:nyt_news/src/scenes/most_viewed/presentation/bloc/viewed_bloc.dart';
 
 class ViewedPage extends StatefulWidget {
-  const ViewedPage({
-    Key? key,
-  }) : super(key: key);
+  const ViewedPage({Key? key}) : super(key: key);
 
   @override
   _ViewedPageState createState() => _ViewedPageState();

@@ -7,15 +7,19 @@ import 'package:url_launcher/url_launcher.dart';
 
 class EmailedArticleRow3 extends StatefulWidget {
   final ArticleEntity entity;
-  EmailedArticleRow3({Key? key, required this.entity}) : super(key: key);
+  EmailedArticleRow3({
+    Key? key,
+    required this.entity,
+  }) : super(key: key);
 
   @override
   _EmailedArticleRowState createState() => _EmailedArticleRowState();
 }
 
 class _EmailedArticleRowState extends State<EmailedArticleRow3> {
-  bool isFavorite = true;
-  final imageSize = 0.17;
+  bool _isFavorite = true;
+  final _imageSize = 0.17;
+  final _buttonContainerSize = 30.0;
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +40,19 @@ class _EmailedArticleRowState extends State<EmailedArticleRow3> {
     Widget _imageContainer(String? url, double height) {
       if (url == null || url.isEmpty) {
         return Container(
-          height: height * imageSize,
-          width: height * imageSize,
-          child: Image.asset(NO_IMAGE_PLACEHOLDER),
+          height: height * _imageSize,
+          width: height * _imageSize,
+          child: Image.asset(kNoImagePlaceholder),
         );
       } else {
         return Container(
-          height: height * imageSize,
-          width: height * imageSize,
+          height: height * _imageSize,
+          width: height * _imageSize,
           child: Image.network(
             url,
             fit: BoxFit.fitHeight,
-            height: height * imageSize,
-            width: height * imageSize,
+            height: height * _imageSize,
+            width: height * _imageSize,
           ),
         );
       }
@@ -77,17 +81,17 @@ class _EmailedArticleRowState extends State<EmailedArticleRow3> {
       );
     }
 
-    Widget _buttonContainer() {
+    Widget _buttonContainer(BuildContext context) {
       return Container(
-        height: 30.0,
-        width: 30.0,
+        height: _buttonContainerSize,
+        width: _buttonContainerSize,
         child: Visibility(
           child: Icon(
             Icons.star_border,
-            size: 30.0,
-            color: Colors.yellow,
+            size: _buttonContainerSize,
+            color: Theme.of(context).indicatorColor,
           ),
-          visible: isFavorite,
+          visible: _isFavorite,
         ),
       );
     }
@@ -118,10 +122,10 @@ class _EmailedArticleRowState extends State<EmailedArticleRow3> {
                               BlocProvider.of<EmailedBloc>(context)
                                   .add(SetArticleFavoriteEvent(widget.entity));
                               setState(() {
-                                isFavorite = !isFavorite;
+                                _isFavorite = !_isFavorite;
                               });
                             },
-                            child: _buttonContainer(),
+                            child: _buttonContainer(context),
                           ),
                         ],
                       ),

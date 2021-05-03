@@ -10,7 +10,10 @@ class ErrorPage extends StatelessWidget {
       child: Text(
         S.of(context).error_loading_data_label,
         style: TextStyle(
-            fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.red),
+          fontSize: 30.0,
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).errorColor,
+        ),
       ),
     );
   }

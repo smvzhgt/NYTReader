@@ -20,7 +20,7 @@ class EmailedArticleRow extends StatelessWidget {
                     width: 80.0,
                     fit: BoxFit.cover,
                   )
-                : Image(image: AssetImage(NO_IMAGE_PLACEHOLDER))),
+                : Image(image: AssetImage(kNoImagePlaceholder))),
       ),
     );
   }
@@ -40,7 +40,7 @@ class EmailedArticleRow extends StatelessWidget {
     );
   }
 
-  Widget _contantContainer(ArticleEntity entity) {
+  Widget _contentContainer(BuildContext context, ArticleEntity entity) {
     return Expanded(
       child: Row(
         children: <Widget>[
@@ -54,7 +54,7 @@ class EmailedArticleRow extends StatelessWidget {
           Icon(
             Icons.star_border,
             size: 30.0,
-            color: Colors.yellow,
+            color: Theme.of(context).indicatorColor,
           ),
         ],
       ),
@@ -71,14 +71,12 @@ class EmailedArticleRow extends StatelessWidget {
         child: Row(
           children: <Widget>[
             _imageContainer(article),
-            SizedBox(
-              width: 3.0,
-            ),
+            SizedBox(width: 3.0),
             Expanded(
               child: Column(
                 children: <Widget>[
                   _titleContainer(article),
-                  _contantContainer(article)
+                  _contentContainer(context, article)
                 ],
               ),
             ),

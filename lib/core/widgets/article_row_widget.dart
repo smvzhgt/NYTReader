@@ -5,7 +5,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ArticleRowWidget extends StatelessWidget {
   final ArticleEntity entity;
-  const ArticleRowWidget({Key? key, required this.entity}) : super(key: key);
+  const ArticleRowWidget({
+    Key? key,
+    required this.entity,
+  }) : super(key: key);
 
   void _onClickRow() async {
     final url = entity.url;
@@ -18,7 +21,7 @@ class ArticleRowWidget extends StatelessWidget {
 
   Widget _setImageWidget(String url, double height) {
     if (url.isEmpty) {
-      return Image.asset(NO_IMAGE_PLACEHOLDER);
+      return Image.asset(kNoImagePlaceholder);
     } else {
       return Image.network(
         url,
@@ -74,9 +77,7 @@ class ArticleRowWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: () {
-                      
-                    },
+                    onTap: () {},
                     child: Container(
                       child: Icon(
                         Icons.star_border,

@@ -8,9 +8,7 @@ import 'package:nyt_news/generated/l10n.dart';
 import 'package:nyt_news/src/scenes/favorite/presentation/bloc/favorite_bloc.dart';
 
 class FavoritePage extends StatefulWidget {
-  const FavoritePage({
-    Key? key,
-  }) : super(key: key);
+  const FavoritePage({Key? key}) : super(key: key);
 
   @override
   _FavoritePageState createState() => _FavoritePageState();

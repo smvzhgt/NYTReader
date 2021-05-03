@@ -1,37 +1,47 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:nyt_news/core/theme.dart';
 import 'generated/l10n.dart';
 import 'package:nyt_news/src/scenes/bottom_navigation/presentation/pages/bottom_navigation_page.dart';
 import 'package:nyt_news/di/injection.dart' as di;
 
-
-void main() {
+void main() async {
   di.init();
-  runApp(App());
+  WidgetsFlutterBinding.ensureInitialized();
+  final savedThemeMode = await AdaptiveTheme.getThemeMode();
+  runApp(App(savedThemeMode: savedThemeMode));
 }
 
 class App extends StatelessWidget {
-  const App({
-    Key? key,
-  }) : super(key: key);
+  final AdaptiveThemeMode? savedThemeMode;
+
+  const App({Key? key, this.savedThemeMode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      title: "New York Times Reader",
-      initialRoute: BottomNavigationPage.routeName,
-      routes: {
-        BottomNavigationPage.routeName: (context) =>
-            const BottomNavigationPage()
-      },
+    return AdaptiveTheme(
+      light: kLightTheme,
+      dark: kDarkTheme,
+      initial: savedThemeMode ?? AdaptiveThemeMode.light,
+      builder: (light, dark) => MaterialApp(
+        title: "New York Times Reader",
+        theme: light,
+        darkTheme: dark,
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        initialRoute: BottomNavigationPage.routeName,
+        routes: {
+          BottomNavigationPage.routeName: (context) =>
+              const BottomNavigationPage()
+        },
+      ),
     );
   }
 }

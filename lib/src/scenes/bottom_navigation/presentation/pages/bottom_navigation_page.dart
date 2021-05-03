@@ -14,9 +14,7 @@ import 'package:nyt_news/src/scenes/most_viewed/presentation/pages/viewed_page.d
 
 class BottomNavigationPage extends StatefulWidget {
   static const String routeName = '/';
-  const BottomNavigationPage({
-    Key? key,
-  }) : super(key: key);
+  const BottomNavigationPage({Key? key}) : super(key: key);
 
   @override
   _BottomNavigationPageState createState() => _BottomNavigationPageState();
@@ -46,20 +44,20 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   List<BottomNavigationBarItem> _getItems(BuildContext context) {
     return [
       BottomNavigationBarItem(
-        icon: Icon(Icons.email, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
+        icon: Icon(Icons.email, size: kBottomNavigationBarIconSize),
         label: S.of(context).emailed_label,
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.share, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
+        icon: Icon(Icons.share, size: kBottomNavigationBarIconSize),
         label: S.of(context).shared_label,
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.picture_in_picture,
-            size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
+        icon:
+            Icon(Icons.picture_in_picture, size: kBottomNavigationBarIconSize),
         label: S.of(context).viewed_label,
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.star, size: BOTTOM_NAVIGATION_BAR_ICON_SIZE),
+        icon: Icon(Icons.star, size: kBottomNavigationBarIconSize),
         label: S.of(context).favorite_label,
       )
     ];
@@ -79,10 +77,6 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
           onTap: _onClickItem,
           currentIndex: _currentIndex,
           items: _getItems(context),
-          backgroundColor: Colors.white,
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.grey,
-          type: BottomNavigationBarType.fixed,
         ),
         body: _pages[_currentIndex],
       ),
