@@ -5,6 +5,10 @@ abstract class EmailedEvent extends Equatable {
 }
 
 class FetchNewsEvent extends EmailedEvent {
+  final bool isCachedData;
+
+  FetchNewsEvent({required this.isCachedData});
+
   @override
   List<Object> get props => throw UnimplementedError();
 }

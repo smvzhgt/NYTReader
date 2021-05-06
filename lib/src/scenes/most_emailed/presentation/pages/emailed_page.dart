@@ -24,7 +24,13 @@ class _EmailedPageState extends State<EmailedPage> {
   }
 
   void _fetchArticles() {
-    BlocProvider.of<EmailedBloc>(context).add(FetchNewsEvent());
+    BlocProvider.of<EmailedBloc>(context)
+        .add(FetchNewsEvent(isCachedData: true));
+  }
+
+  void _updateArticles() {
+    BlocProvider.of<EmailedBloc>(context)
+        .add(FetchNewsEvent(isCachedData: false));
   }
 
   @override
@@ -33,7 +39,7 @@ class _EmailedPageState extends State<EmailedPage> {
       appBar: AppBar(
         title: Text(S.of(context).app_title),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.refresh), onPressed: _fetchArticles)
+          IconButton(icon: Icon(Icons.refresh), onPressed: _updateArticles)
         ],
       ),
       body: Center(

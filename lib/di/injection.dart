@@ -6,17 +6,20 @@ import 'package:nyt_news/src/scenes/favorite/data/repositories/favorite_reposito
 import 'package:nyt_news/src/scenes/favorite/domain/interactor/favorite_interactor.dart';
 import 'package:nyt_news/src/scenes/favorite/domain/repository/favorite_repository.dart';
 import 'package:nyt_news/src/scenes/favorite/presentation/bloc/favorite_bloc.dart';
+import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_memory_data_source.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_local_data_source.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_remote_data_source.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/repositories/emailed_repository.dart';
 import 'package:nyt_news/src/scenes/most_emailed/domain/interactor/emailed_interactor.dart';
 import 'package:nyt_news/src/scenes/most_emailed/domain/repository/emailed_repository.dart';
 import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.dart';
+import 'package:nyt_news/src/scenes/most_shared/data/datasources/shared_memory_data_source.dart';
 import 'package:nyt_news/src/scenes/most_shared/data/datasources/shared_remote_data_source.dart';
 import 'package:nyt_news/src/scenes/most_shared/data/repositories/shared_repository.dart';
 import 'package:nyt_news/src/scenes/most_shared/domain/interactor/shared_interactor.dart';
 import 'package:nyt_news/src/scenes/most_shared/domain/repository/shared_repository.dart';
 import 'package:nyt_news/src/scenes/most_shared/presentation/bloc/shared_bloc.dart';
+import 'package:nyt_news/src/scenes/most_viewed/data/datasources/viewed_memory_data_source.dart';
 import 'package:nyt_news/src/scenes/most_viewed/data/datasources/viewed_remote_data_source.dart';
 import 'package:nyt_news/src/scenes/most_viewed/data/repositories/viewed_repository.dart';
 import 'package:nyt_news/src/scenes/most_viewed/domain/interactor/viewed_interactor.dart';
@@ -34,8 +37,8 @@ void init() {
   sl.registerLazySingleton<EmailedInteractor>(
       () => EmailedInteractorImpl(repository: sl()));
   // Repository
-  sl.registerLazySingleton<EmailedRepository>(() =>
-      EmailedRepositoryImpl(remoteDataSource: sl(), localDataSource: sl()));
+  sl.registerLazySingleton<EmailedRepository>(() => EmailedRepositoryImpl(
+      remoteDataSource: sl(), localDataSource: sl(), memoryDataSource: sl()));
   // RemoteDataSource
   sl.registerLazySingleton<EmailedRemoteDataSource>(
     () => EmailedRemoteDataSourceImpl(apiClient: sl()),
@@ -43,6 +46,10 @@ void init() {
   // LocalDataSource
   sl.registerLazySingleton<EmailedLocalDataSource>(
     () => EmailedLocalDataSourceImpl(dbClient: sl()),
+  );
+  // MemoryDataSource
+  sl.registerLazySingleton<EmailedMemoryDataSource>(
+    () => EmailedMemoryDataSourceImpl(),
   );
 
   // Most Shared
@@ -54,10 +61,16 @@ void init() {
       () => SharedInteractorImpl(repository: sl()));
   // Repository
   sl.registerLazySingleton<SharedRepository>(
-      () => SharedRepositoryImpl(remoteDataSource: sl()));
+    () => SharedRepositoryImpl(remoteDataSource: sl(), memoryDataSource: sl()),
+  );
   // RemoteDataSource
   sl.registerLazySingleton<SharedRemoteDataSource>(
-      () => SharedRemoteDataSourceImpl(apiClient: sl()));
+    () => SharedRemoteDataSourceImpl(apiClient: sl()),
+  );
+  // MemoryDataSource
+  sl.registerLazySingleton<SharedMemoryDataSource>(
+    () => SharedMemoryDataSourceImpl(),
+  );
 
   // Most Viewed
 
@@ -67,11 +80,15 @@ void init() {
   sl.registerLazySingleton<ViewedInteractor>(
       () => ViewedInteractorImpl(repository: sl()));
   // Repository
-  sl.registerLazySingleton<ViewedRepository>(
-      () => ViewedRepositoryImpl(remoteDataSource: sl()));
+  sl.registerLazySingleton<ViewedRepository>(() =>
+      ViewedRepositoryImpl(remoteDataSource: sl(), memoryDataSource: sl()));
   // RemoteDataSource
   sl.registerLazySingleton<ViewedRemoteDataSource>(
     () => ViewedRemoteDataSourceImpl(apiClient: sl()),
+  );
+  // MemoryDataSource
+  sl.registerLazySingleton<ViewedMemoryDataSource>(
+    () => ViewedMemoryDataSourceImpl(),
   );
 
   // Favorite

@@ -24,7 +24,11 @@ class _SharedPageState extends State<SharedPage> {
   }
 
   void _fetchArticles() {
-    BlocProvider.of<SharedBloc>(context).add(FetchSharedArticlesEvent());
+    BlocProvider.of<SharedBloc>(context).add(FetchSharedArticlesEvent(isCachedData: true));
+  }
+
+  void _updateArticles() {
+    BlocProvider.of<SharedBloc>(context).add(FetchSharedArticlesEvent(isCachedData: false));
   }
 
   @override
@@ -33,7 +37,7 @@ class _SharedPageState extends State<SharedPage> {
       appBar: AppBar(
         title: Text(S.of(context).app_title),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.refresh), onPressed: _fetchArticles)
+          IconButton(icon: Icon(Icons.refresh), onPressed: _updateArticles)
         ],
       ),
       body: Center(

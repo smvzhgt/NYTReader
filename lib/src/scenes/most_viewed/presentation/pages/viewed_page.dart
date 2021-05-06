@@ -22,7 +22,13 @@ class _ViewedPageState extends State<ViewedPage> {
   }
 
   void _fetchArticles() {
-    BlocProvider.of<ViewedBloc>(context).add(FetchViewedArticlesEvent());
+    BlocProvider.of<ViewedBloc>(context)
+        .add(FetchViewedArticlesEvent(isCachedData: true));
+  }
+
+  void _updateArticles() {
+    BlocProvider.of<ViewedBloc>(context)
+        .add(FetchViewedArticlesEvent(isCachedData: false));
   }
 
   @override
@@ -31,7 +37,7 @@ class _ViewedPageState extends State<ViewedPage> {
       appBar: AppBar(
         title: Text(S.of(context).app_title),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.refresh), onPressed: _fetchArticles)
+          IconButton(icon: Icon(Icons.refresh), onPressed: _updateArticles)
         ],
       ),
       body: Center(

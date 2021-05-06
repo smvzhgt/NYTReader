@@ -5,7 +5,10 @@ import 'package:nyt_news/core/entities/article_entity.dart';
 class EmailedArticleRow extends StatelessWidget {
   final ArticleEntity article;
 
-  const EmailedArticleRow({Key? key, required this.article}) : super(key: key);
+  const EmailedArticleRow({
+    Key? key,
+    required this.article,
+  }) : super(key: key);
 
   Widget _imageContainer(ArticleEntity article) {
     return Container(

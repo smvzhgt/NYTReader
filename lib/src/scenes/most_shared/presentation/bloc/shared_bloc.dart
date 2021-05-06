@@ -19,7 +19,8 @@ class SharedBloc extends Bloc<SharedEvent, SharedState> {
   ) async* {
     if (event is FetchSharedArticlesEvent) {
       yield SharedLoadingState();
-      final either = await interactor.fetchMostSharedArticles();
+      final either =
+          await interactor.fetchMostSharedArticles(event.isCachedData);
       if (either.isRight()) {
         final entities = either.getOrElse(() => List<ArticleEntity>.empty());
         if (entities.isEmpty) {

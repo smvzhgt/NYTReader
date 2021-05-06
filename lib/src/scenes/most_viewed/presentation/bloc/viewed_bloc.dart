@@ -19,7 +19,8 @@ class ViewedBloc extends Bloc<ViewedEvent, ViewedState> {
   ) async* {
     if (event is FetchViewedArticlesEvent) {
       yield ViewedLoadingState();
-      final either = await interactor.fetchMostViewedArticles();
+      final either =
+          await interactor.fetchMostViewedArticles(event.isCachedData);
       if (either.isRight()) {
         final entities = either.getOrElse(() => List<ArticleEntity>.empty());
         if (entities.isEmpty) {
