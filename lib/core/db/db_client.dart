@@ -30,7 +30,7 @@ class DBClient {
         "title TEXT,"
         "article_abstract TEXT,"
         "image_url TEXT,"
-        "isFavorite BIT"
+        "is_favorite INTEGER"
         ")",
       );
     });
@@ -39,7 +39,7 @@ class DBClient {
   Future<int?> insertArticle(ArticleEntity article) async {
     final db = await database;
     return await db?.rawInsert(
-        "INSERT Into Article (id,url,title,article_abstract,image_url,isFavorite)"
+        "INSERT Into Article (id,url,title,article_abstract,image_url,is_favorite)"
         " VALUES (?,?,?,?,?,?)",
         [
           article.id,

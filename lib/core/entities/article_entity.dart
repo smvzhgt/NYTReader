@@ -34,7 +34,7 @@ class ArticleEntity {
         title: json["title"],
         articleAbstract: json["article_abstract"],
         imageUrl: json["image_url"],
-        isFavorite: false
+        isFavorite: json["is_favorite"] == 1
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,7 +43,7 @@ class ArticleEntity {
         "title": title,
         "article_abstract": articleAbstract,
         "image_url": imageUrl,
-        "isFavorite": isFavorite
+        "isFavorite": isFavorite ? 1 : 0
       };
 
   int get id => _id;
