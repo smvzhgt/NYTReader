@@ -57,7 +57,7 @@ class _FavoritePageState extends State<FavoritePage> {
     return ListView.builder(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       itemBuilder: (BuildContext context, int index) {
-        return ArticleRowItem(entity: entities[index]);
+        return ArticleRowItem(entity: entities[index], isClickable: false);
       },
       itemCount: entities.length,
     );

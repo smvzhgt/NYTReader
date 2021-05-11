@@ -5,9 +5,11 @@ import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.
 
 class FavoriteButtonWidget extends StatefulWidget {
   final ArticleEntity entity;
-  const FavoriteButtonWidget({
+  var isClickable;
+  FavoriteButtonWidget({
     Key? key,
     required this.entity,
+    this.isClickable = true,
   }) : super(key: key);
 
   @override
@@ -27,17 +29,22 @@ class _FavoriteButtonWidgetState extends State<FavoriteButtonWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        _doDbOperations(widget.entity);
+    if (widget.isClickable) {
+      return IconButton(
+        onPressed: () {
+          _doDbOperations(widget.entity);
 
-        setState(() {
-          widget.entity.isFavorite = !widget.entity.isFavorite;
-        });
-      },
-      icon:
-          widget.entity.isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
-      color: Theme.of(context).indicatorColor,
-    );
+          setState(() {
+            widget.entity.isFavorite = !widget.entity.isFavorite;
+          });
+        },
+        icon: widget.entity.isFavorite
+            ? Icon(Icons.star)
+            : Icon(Icons.star_border),
+        color: Theme.of(context).indicatorColor,
+      );
+    } else {
+      return Icon(Icons.star, color: Theme.of(context).indicatorColor);
+    }
   }
 }
