@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
+import 'package:nyt_news/core/pages/empty_favorite_page.dart';
 import 'package:nyt_news/core/pages/error_page.dart';
 import 'package:nyt_news/core/pages/loading_page.dart';
 import 'package:nyt_news/core/widgets/article_row_item.dart';
@@ -42,7 +43,7 @@ class _FavoritePageState extends State<FavoritePage> {
             } else if (state is FavoriteErrorState) {
               return const ErrorPage();
             } else if (state is FavoriteInitialState) {
-              return Container();
+              return const EmptyFavoritePage();
             } else {
               return Container();
             }

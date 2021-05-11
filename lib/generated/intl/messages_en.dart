@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_title":
             MessageLookupByLibrary.simpleMessage("New York Times Reader"),
         "emailed_label": MessageLookupByLibrary.simpleMessage("Emailed"),
+        "empty_favorite_label":
+            MessageLookupByLibrary.simpleMessage("Favorite articles not found"),
         "error_loading_data_label":
             MessageLookupByLibrary.simpleMessage("Error loading articles"),
         "favorite_label": MessageLookupByLibrary.simpleMessage("Favorite"),

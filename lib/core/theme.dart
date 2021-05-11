@@ -6,10 +6,11 @@ final kLightTheme = ThemeData.light().copyWith(
   errorColor: Colors.red,
   indicatorColor: Colors.yellow,
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Colors.white,
-      selectedItemColor: Colors.blue,
-      unselectedItemColor: Colors.grey,
-      type: BottomNavigationBarType.fixed),
+    backgroundColor: Colors.white,
+    selectedItemColor: Colors.blue,
+    unselectedItemColor: Colors.grey,
+    type: BottomNavigationBarType.fixed,
+  ),
 );
 
 final kDarkTheme = ThemeData.dark().copyWith(
@@ -18,8 +19,9 @@ final kDarkTheme = ThemeData.dark().copyWith(
   errorColor: Colors.red,
   indicatorColor: Colors.yellow,
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Colors.white,
-      selectedItemColor: Colors.blue,
-      unselectedItemColor: Colors.grey,
-      type: BottomNavigationBarType.fixed),
+    backgroundColor: Colors.white,
+    selectedItemColor: Colors.blue,
+    unselectedItemColor: Colors.grey,
+    type: BottomNavigationBarType.fixed,
+  ),
 );

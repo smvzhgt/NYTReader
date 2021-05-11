@@ -109,6 +109,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Favorite articles not found`
+  String get empty_favorite_label {
+    return Intl.message(
+      'Favorite articles not found',
+      name: 'empty_favorite_label',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
