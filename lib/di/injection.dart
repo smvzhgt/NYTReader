@@ -105,7 +105,7 @@ void init() {
   sl.registerLazySingleton<FavoriteLocalDataSource>(
       () => FavoriteLocalDataSourceImpl(dbClient: sl()));
   // DBClient
-  sl.registerSingleton(DBClient.db);
+  sl.registerSingleton(DBClient.dbClient);
 
   // ApiClient
   sl.registerLazySingleton<ApiClient>(() => ApiClientImpl());

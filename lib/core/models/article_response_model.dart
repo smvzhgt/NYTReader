@@ -63,7 +63,8 @@ class ArticleModel extends ArticleEntity {
             url: url,
             title: title,
             articleAbstract: articleAbstract,
-            imageUrl: "") {
+            imageUrl: "",
+            isFavorite: false) {
     this._id = id;
     this._url = url;
     this._title = title;
@@ -122,7 +123,8 @@ class ArticleModel extends ArticleEntity {
         url: url,
         title: title,
         articleAbstract: articleAbstract,
-        imageUrl: entityImageUrl);
+        imageUrl: entityImageUrl,
+        isFavorite: false);
   }
 }
 

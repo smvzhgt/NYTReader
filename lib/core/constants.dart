@@ -1,6 +1,5 @@
 class Constants {
-  // static const API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-  static const API_KEY = "SQrn2tIcRuqUUXegjnlQqAJucImj5LAZ";
+  static const API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 }
 
 const kBottomNavigationBarIconSize = 25.0;

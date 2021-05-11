@@ -7,6 +7,9 @@ import 'package:nyt_news/core/result_type.dart';
 abstract class EmailedLocalDataSource {
   Future<Either<DBException, EmptyResult>> saveArticleToDB(
       ArticleEntity article);
+  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
+      ArticleEntity article);
+  Future<Either<DBException, List<ArticleEntity>>> fetchArticlesFromDB();
 }
 
 class EmailedLocalDataSourceImpl implements EmailedLocalDataSource {
@@ -16,21 +19,46 @@ class EmailedLocalDataSourceImpl implements EmailedLocalDataSource {
     required this.dbClient,
   });
 
-  Future _saveToDb(ArticleEntity article) async {
+  Future<int?> _saveToDb(ArticleEntity article) async {
     final dbArticle = await dbClient.getArticle(article.id);
     if (dbArticle == null) {
-      await dbClient.insertNewArticle(article);
+      return await dbClient.insertArticle(article);
     } else {
-      await dbClient.updateArticle(article);
+      return await dbClient.updateArticle(article);
     }
+  }
+
+  Future<int?> _deleteFromDb(ArticleEntity article) async {
+    return await dbClient.deleteArticle(article.id);
   }
 
   @override
   Future<Either<DBException, EmptyResult>> saveArticleToDB(
       ArticleEntity article) async {
-    try {
-      await _saveToDb(article);
+    final result = await _saveToDb(article);
+    if (result != null && !result.isNegative) {
       return Right(EmptyResult());
+    } else {
+      return Left(DBException());
+    }
+  }
+
+  @override
+  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
+      ArticleEntity article) async {
+    final result = await _deleteFromDb(article);
+    if (result != null && !result.isNegative) {
+      return Right(EmptyResult());
+    } else {
+      return Left(DBException());
+    }
+  }
+
+  @override
+  Future<Either<DBException, List<ArticleEntity>>> fetchArticlesFromDB() async {
+    try {
+      final result = await dbClient.getAllArticles();
+      return Right(result);
     } on Exception {
       return Left(DBException());
     }

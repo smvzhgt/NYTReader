@@ -13,10 +13,18 @@ class FetchNewsEvent extends EmailedEvent {
   List<Object> get props => throw UnimplementedError();
 }
 
-class SetArticleFavoriteEvent extends EmailedEvent {
+class AddToFavoriteEvent extends EmailedEvent {
   final ArticleEntity articleEntity;
 
-  SetArticleFavoriteEvent(this.articleEntity);
+  AddToFavoriteEvent(this.articleEntity);
+  @override
+  List<Object> get props => throw UnimplementedError();
+}
+
+class DeleteFromFavoriteEvent extends EmailedEvent {
+  final ArticleEntity articleEntity;
+
+  DeleteFromFavoriteEvent(this.articleEntity);
   @override
   List<Object> get props => throw UnimplementedError();
 }

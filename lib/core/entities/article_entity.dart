@@ -6,18 +6,21 @@ class ArticleEntity {
   String _title = "";
   String _articleAbstract = "";
   String _imageUrl = "";
+  bool _isFavorite = false;
 
   ArticleEntity(
       {required int id,
       required String url,
       required String title,
       required String articleAbstract,
-      required String imageUrl}) {
+      required String imageUrl,
+      required bool isFavorite}) {
     this._id = id;
     this._url = url;
     this._title = title;
     this._articleAbstract = articleAbstract;
     this._imageUrl = imageUrl;
+    this._isFavorite = isFavorite;
   }
 
   factory ArticleEntity.fromRawJson(String str) =>
@@ -31,6 +34,7 @@ class ArticleEntity {
         title: json["title"],
         articleAbstract: json["article_abstract"],
         imageUrl: json["image_url"],
+        isFavorite: false
       );
 
   Map<String, dynamic> toJson() => {
@@ -39,6 +43,7 @@ class ArticleEntity {
         "title": title,
         "article_abstract": articleAbstract,
         "image_url": imageUrl,
+        "isFavorite": isFavorite
       };
 
   int get id => _id;
@@ -56,5 +61,8 @@ class ArticleEntity {
       _articleAbstract = articleAbstract;
 
   String get imageUrl => _imageUrl;
-  set imageUrl(String _imageUrl) => _imageUrl = imageUrl;
+  set imageUrl(String imageUrl) => _imageUrl = imageUrl;
+
+  bool get isFavorite => _isFavorite;
+  set isFavorite(bool isFavorite) => _isFavorite = isFavorite;
 }

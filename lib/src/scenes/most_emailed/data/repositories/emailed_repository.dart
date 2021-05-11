@@ -27,14 +27,24 @@ class EmailedRepositoryImpl implements EmailedRepository {
     }
 
     final either = await remoteDataSource.fetchMostEmailedArticles();
-
     if (either.isRight()) {
-      final articles = either.getOrElse(() => List<ArticleModel>.empty());
-      final entities = articles.map((e) => e.entity()).toList();
+      final remoteResult = either.getOrElse(() => List<ArticleModel>.empty());
+      final remoteEntities = remoteResult.map((e) => e.entity()).toList();
 
-      memoryDataSource.putArticlesToMemoryCache(entities);
+      final dbResult = await localDataSource.fetchArticlesFromDB();
+      final dbEntities = dbResult.getOrElse(() => List<ArticleModel>.empty());
 
-      return Right(entities);
+      dbEntities.forEach((dbElement) {
+        remoteEntities
+            .firstWhere(
+              (element) => dbElement.id == element.id,
+            )
+            .isFavorite = true;
+      });
+
+      memoryDataSource.putArticlesToMemoryCache(remoteEntities);
+
+      return Right(remoteEntities);
     } else {
       return Left(NetworkException());
     }
@@ -42,7 +52,15 @@ class EmailedRepositoryImpl implements EmailedRepository {
 
   @override
   Future<Either<DBException, EmptyResult>> saveArticleToDB(
-      ArticleEntity article) {
-    return localDataSource.saveArticleToDB(article);
+      ArticleEntity article) async {
+    memoryDataSource.addArticleAsFavoriteToCache(article);
+    return await localDataSource.saveArticleToDB(article);
+  }
+
+  @override
+  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
+      ArticleEntity article) async {
+    memoryDataSource.deleteArticleAsFavoriteFromCache(article);
+    return await localDataSource.deleteArticleFromDB(article);
   }
 }

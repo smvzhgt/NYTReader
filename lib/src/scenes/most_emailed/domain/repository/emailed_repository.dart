@@ -9,4 +9,6 @@ abstract class EmailedRepository {
 
   Future<Either<DBException, EmptyResult>> saveArticleToDB(
       ArticleEntity article);
+
+  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(ArticleEntity article);
 }

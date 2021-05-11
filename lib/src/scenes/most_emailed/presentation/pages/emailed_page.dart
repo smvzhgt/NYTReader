@@ -5,7 +5,7 @@ import 'package:nyt_news/core/pages/error_page.dart';
 import 'package:nyt_news/core/pages/loading_page.dart';
 import 'package:nyt_news/generated/l10n.dart';
 import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.dart';
-import 'package:nyt_news/src/scenes/most_emailed/presentation/widgets/emailed_article_row.dart';
+import 'package:nyt_news/core/widgets/article_row_item.dart';
 
 class EmailedPage extends StatefulWidget {
   const EmailedPage({
@@ -65,10 +65,11 @@ class _EmailedPageState extends State<EmailedPage> {
 
   Widget _buildList(List<ArticleEntity> entities) {
     return ListView.builder(
-        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-        itemBuilder: (BuildContext context, int index) {
-          return EmailedArticleRow(article: entities[index]);
-        },
-        itemCount: entities.length);
+      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+      itemBuilder: (BuildContext context, int index) {
+        return ArticleRowItem(entity: entities[index]);
+      },
+      itemCount: entities.length,
+    );
   }
 }

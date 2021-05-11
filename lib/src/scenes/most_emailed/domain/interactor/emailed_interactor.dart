@@ -9,6 +9,8 @@ abstract class EmailedInteractor {
       fetchMostEmailedArticles(bool isCachedData);
   Future<Either<DBException, EmptyResult>> saveArticleToDB(
       ArticleEntity article);
+  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
+      ArticleEntity article);
 }
 
 class EmailedInteractorImpl implements EmailedInteractor {
@@ -21,12 +23,18 @@ class EmailedInteractorImpl implements EmailedInteractor {
   @override
   Future<Either<NetworkException, List<ArticleEntity>>>
       fetchMostEmailedArticles(bool isCachedData) async {
-    return repository.fetchMostEmailedArticles(isCachedData);
+    return await repository.fetchMostEmailedArticles(isCachedData);
   }
 
   @override
   Future<Either<DBException, EmptyResult>> saveArticleToDB(
-      ArticleEntity article) {
-    return repository.saveArticleToDB(article);
+      ArticleEntity article) async {
+    return await repository.saveArticleToDB(article);
+  }
+
+  @override
+  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
+      ArticleEntity article) async {
+    return await repository.deleteArticleFromDB(article);
   }
 }

@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/pages/error_page.dart';
 import 'package:nyt_news/core/pages/loading_page.dart';
-import 'package:nyt_news/core/widgets/article_row_widget.dart';
+import 'package:nyt_news/core/widgets/article_row_item.dart';
 import 'package:nyt_news/generated/l10n.dart';
 import 'package:nyt_news/src/scenes/most_viewed/presentation/bloc/viewed_bloc.dart';
 
 class ViewedPage extends StatefulWidget {
-  const ViewedPage({Key? key}) : super(key: key);
+  const ViewedPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ViewedPageState createState() => _ViewedPageState();
@@ -63,10 +65,11 @@ class _ViewedPageState extends State<ViewedPage> {
 
   Widget _buildList(List<ArticleEntity> entities) {
     return ListView.builder(
-        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-        itemBuilder: (BuildContext context, int index) {
-          return ArticleRowWidget(entity: entities[index]);
-        },
-        itemCount: entities.length);
+      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+      itemBuilder: (BuildContext context, int index) {
+        return ArticleRowItem(entity: entities[index]);
+      },
+      itemCount: entities.length,
+    );
   }
 }
