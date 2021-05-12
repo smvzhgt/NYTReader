@@ -17,8 +17,8 @@ class ViewedRepositoryImpl implements ViewedRepository {
   });
 
   @override
-  Future<Either<NetworkException, List<ArticleEntity>>> fetchMostViewedArticles(
-      bool isCachedData) async {
+  Future<Either<NetworkException, List<ArticleEntity>>>
+      fetchMostViewedArticles() async {
     final either = await remoteDataSource.fetchMostViewedArticles();
 
     if (either.isRight()) {

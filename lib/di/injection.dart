@@ -7,13 +7,11 @@ import 'package:nyt_news/src/scenes/favorite/domain/interactor/favorite_interact
 import 'package:nyt_news/src/scenes/favorite/domain/repository/favorite_repository.dart';
 import 'package:nyt_news/src/scenes/favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_local_data_source.dart';
-import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_memory_data_source.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/datasources/emailed_remote_data_source.dart';
 import 'package:nyt_news/src/scenes/most_emailed/data/repositories/emailed_repository.dart';
 import 'package:nyt_news/src/scenes/most_emailed/domain/interactor/emailed_interactor.dart';
 import 'package:nyt_news/src/scenes/most_emailed/domain/repository/emailed_repository.dart';
 import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.dart';
-import 'package:nyt_news/src/scenes/most_shared/data/datasources/shared_memory_data_source.dart';
 import 'package:nyt_news/src/scenes/most_shared/data/datasources/shared_remote_data_source.dart';
 import 'package:nyt_news/src/scenes/most_shared/data/repositories/shared_repository.dart';
 import 'package:nyt_news/src/scenes/most_shared/domain/interactor/shared_interactor.dart';
@@ -39,8 +37,7 @@ void init() {
   );
   // Repository
   sl.registerLazySingleton<EmailedRepository>(
-    () => EmailedRepositoryImpl(
-        remoteDataSource: sl(), localDataSource: sl(), memoryDataSource: sl()),
+    () => EmailedRepositoryImpl(remoteDataSource: sl(), localDataSource: sl()),
   );
   // RemoteDataSource
   sl.registerLazySingleton<EmailedRemoteDataSource>(
@@ -49,10 +46,6 @@ void init() {
   // LocalDataSource
   sl.registerLazySingleton<EmailedLocalDataSource>(
     () => EmailedLocalDataSourceImpl(dbClient: sl()),
-  );
-  // MemoryDataSource
-  sl.registerLazySingleton<EmailedMemoryDataSource>(
-    () => EmailedMemoryDataSourceImpl(),
   );
 
   // Most Shared
@@ -67,24 +60,23 @@ void init() {
   );
   // Repository
   sl.registerLazySingleton<SharedRepository>(
-    () => SharedRepositoryImpl(remoteDataSource: sl(), memoryDataSource: sl()),
+    () => SharedRepositoryImpl(remoteDataSource: sl()),
   );
   // RemoteDataSource
   sl.registerLazySingleton<SharedRemoteDataSource>(
     () => SharedRemoteDataSourceImpl(apiClient: sl()),
   );
-  // MemoryDataSource
-  sl.registerLazySingleton<SharedMemoryDataSource>(
-    () => SharedMemoryDataSourceImpl(),
-  );
 
   // Most Viewed
 
   // Bloc
-  sl.registerFactory(() => ViewedBloc(ViewedInitialState(), sl()));
+  sl.registerFactory(
+    () => ViewedBloc(ViewedInitialState(), sl()),
+  );
   // Interactor
   sl.registerLazySingleton<ViewedInteractor>(
-      () => ViewedInteractorImpl(repository: sl()));
+    () => ViewedInteractorImpl(repository: sl()),
+  );
   // Repository
   sl.registerLazySingleton<ViewedRepository>(
     () => ViewedRepositoryImpl(remoteDataSource: sl(), localDataSource: sl()),

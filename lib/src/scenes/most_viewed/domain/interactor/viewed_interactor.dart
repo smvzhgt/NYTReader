@@ -5,8 +5,8 @@ import 'package:nyt_news/core/result_type.dart';
 import 'package:nyt_news/src/scenes/most_viewed/domain/repository/viewed_repository.dart';
 
 abstract class ViewedInteractor {
-  Future<Either<NetworkException, List<ArticleEntity>>> fetchMostViewedArticles(
-      bool isCachedData);
+  Future<Either<NetworkException, List<ArticleEntity>>>
+      fetchMostViewedArticles();
   Future<Either<DBException, EmptyResult>> saveArticleToDB(
       ArticleEntity article);
   Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
@@ -21,9 +21,9 @@ class ViewedInteractorImpl implements ViewedInteractor {
   });
 
   @override
-  Future<Either<NetworkException, List<ArticleEntity>>> fetchMostViewedArticles(
-      bool isCachedData) async {
-    return repository.fetchMostViewedArticles(isCachedData);
+  Future<Either<NetworkException, List<ArticleEntity>>>
+      fetchMostViewedArticles() async {
+    return repository.fetchMostViewedArticles();
   }
 
   @override

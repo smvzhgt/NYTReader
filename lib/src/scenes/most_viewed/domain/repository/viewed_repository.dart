@@ -5,8 +5,9 @@ import 'package:nyt_news/core/result_type.dart';
 
 abstract class ViewedRepository {
   Future<Either<NetworkException, List<ArticleEntity>>>
-      fetchMostViewedArticles(bool isCachedData);
+      fetchMostViewedArticles();
   Future<Either<DBException, EmptyResult>> saveArticleToDB(
       ArticleEntity article);
-  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(ArticleEntity article);
+  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
+      ArticleEntity article);
 }

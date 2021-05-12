@@ -4,8 +4,8 @@ import 'package:nyt_news/core/exceptions.dart';
 import 'package:nyt_news/src/scenes/most_shared/domain/repository/shared_repository.dart';
 
 abstract class SharedInteractor {
-  Future<Either<NetworkException, List<ArticleEntity>>> fetchMostSharedArticles(
-      bool isCachedData);
+  Future<Either<NetworkException, List<ArticleEntity>>>
+      fetchMostSharedArticles();
 }
 
 class SharedInteractorImpl implements SharedInteractor {
@@ -16,8 +16,8 @@ class SharedInteractorImpl implements SharedInteractor {
   });
 
   @override
-  Future<Either<NetworkException, List<ArticleEntity>>> fetchMostSharedArticles(
-      bool isCachedData) async {
-    return repository.fetchMostSharedArticles(isCachedData);
+  Future<Either<NetworkException, List<ArticleEntity>>>
+      fetchMostSharedArticles() async {
+    return repository.fetchMostSharedArticles();
   }
 }

@@ -5,10 +5,11 @@ import 'package:nyt_news/core/result_type.dart';
 
 abstract class EmailedRepository {
   Future<Either<NetworkException, List<ArticleEntity>>>
-      fetchMostEmailedArticles(bool isCachedData);
+      fetchMostEmailedArticles();
 
   Future<Either<DBException, EmptyResult>> saveArticleToDB(
       ArticleEntity article);
 
-  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(ArticleEntity article);
+  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
+      ArticleEntity article);
 }

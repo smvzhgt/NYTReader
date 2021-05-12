@@ -6,7 +6,7 @@ import 'package:nyt_news/src/scenes/most_emailed/domain/repository/emailed_repos
 
 abstract class EmailedInteractor {
   Future<Either<NetworkException, List<ArticleEntity>>>
-      fetchMostEmailedArticles(bool isCachedData);
+      fetchMostEmailedArticles();
   Future<Either<DBException, EmptyResult>> saveArticleToDB(
       ArticleEntity article);
   Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
@@ -22,8 +22,8 @@ class EmailedInteractorImpl implements EmailedInteractor {
 
   @override
   Future<Either<NetworkException, List<ArticleEntity>>>
-      fetchMostEmailedArticles(bool isCachedData) async {
-    return await repository.fetchMostEmailedArticles(isCachedData);
+      fetchMostEmailedArticles() async {
+    return await repository.fetchMostEmailedArticles();
   }
 
   @override

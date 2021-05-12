@@ -20,7 +20,7 @@ class SharedBloc extends Bloc<SharedEvent, SharedState> {
     if (event is FetchSharedArticlesEvent) {
       yield SharedLoadingState();
       final either =
-          await interactor.fetchMostSharedArticles(event.isCachedData);
+          await interactor.fetchMostSharedArticles();
       if (either.isRight()) {
         final entities = either.getOrElse(() => List<ArticleEntity>.empty());
         if (entities.isEmpty) {
