@@ -33,6 +33,15 @@ class _EmailedPageState extends State<EmailedPage> {
         .add(FetchNewsEvent(isCachedData: false));
   }
 
+  void _onClickButton(ArticleEntity entity) {
+    if (entity.isFavorite) {
+      BlocProvider.of<EmailedBloc>(context)
+          .add(DeleteFromFavoriteEvent(entity));
+    } else {
+      BlocProvider.of<EmailedBloc>(context).add(AddToFavoriteEvent(entity));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +76,10 @@ class _EmailedPageState extends State<EmailedPage> {
     return ListView.builder(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       itemBuilder: (BuildContext context, int index) {
-        return ArticleRowItem(entity: entities[index]);
+        return ArticleRowItem(
+          entity: entities[index],
+          onClickButton: _onClickButton,
+        );
       },
       itemCount: entities.length,
     );

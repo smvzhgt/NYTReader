@@ -12,3 +12,19 @@ class FetchSharedArticlesEvent extends SharedEvent {
   @override
   List<Object> get props => throw UnimplementedError();
 }
+
+class AddToFavoriteEvent extends SharedEvent {
+  final ArticleEntity articleEntity;
+
+  AddToFavoriteEvent(this.articleEntity);
+  @override
+  List<Object> get props => throw UnimplementedError();
+}
+
+class DeleteFromFavoriteEvent extends SharedEvent {
+  final ArticleEntity articleEntity;
+
+  DeleteFromFavoriteEvent(this.articleEntity);
+  @override
+  List<Object> get props => throw UnimplementedError();
+}

@@ -13,10 +13,11 @@ class EmailedRepositoryImpl implements EmailedRepository {
   final EmailedLocalDataSource localDataSource;
   final EmailedMemoryDataSource memoryDataSource;
 
-  EmailedRepositoryImpl(
-      {required this.remoteDataSource,
-      required this.localDataSource,
-      required this.memoryDataSource});
+  EmailedRepositoryImpl({
+    required this.remoteDataSource,
+    required this.localDataSource,
+    required this.memoryDataSource,
+  });
 
   @override
   Future<Either<NetworkException, List<ArticleEntity>>>

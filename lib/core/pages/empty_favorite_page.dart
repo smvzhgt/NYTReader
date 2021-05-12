@@ -12,7 +12,7 @@ class EmptyFavoritePage extends StatelessWidget {
       child: Text(
         S.of(context).empty_favorite_label,
         style: TextStyle(
-          fontSize: 30.0,
+          fontSize: 26.0,
           fontWeight: FontWeight.bold,
           color: Colors.black54,
         ),

@@ -31,6 +31,10 @@ class ViewedBloc extends Bloc<ViewedEvent, ViewedState> {
       } else {
         yield ViewedErrorState();
       }
+    } else if (event is AddToFavoriteEvent) {
+      await interactor.saveArticleToDB(event.articleEntity);
+    } else if (event is DeleteFromFavoriteEvent) {
+      await interactor.deleteArticleFromDB(event.articleEntity);
     }
   }
 }

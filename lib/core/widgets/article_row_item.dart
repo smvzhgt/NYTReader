@@ -8,11 +8,12 @@ import 'favorite_button_widget.dart';
 
 class ArticleRowItem extends StatelessWidget {
   final ArticleEntity entity;
-  var isClickable;
+  Function(ArticleEntity entity) onClickButton;
+
   ArticleRowItem({
     Key? key,
     required this.entity,
-    this.isClickable = true
+    required this.onClickButton,
   }) : super(key: key);
 
   void _onClickRow() async {
@@ -72,7 +73,8 @@ class ArticleRowItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _articleBodyTextWidget(entity.articleAbstract),
-                          FavoriteButtonWidget(entity: entity, isClickable: isClickable)
+                          FavoriteButtonWidget(
+                              entity: entity, onClickButton: onClickButton)
                         ],
                       ),
                     ),

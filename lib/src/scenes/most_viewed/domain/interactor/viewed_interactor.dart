@@ -1,11 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/exceptions.dart';
+import 'package:nyt_news/core/result_type.dart';
 import 'package:nyt_news/src/scenes/most_viewed/domain/repository/viewed_repository.dart';
 
 abstract class ViewedInteractor {
   Future<Either<NetworkException, List<ArticleEntity>>> fetchMostViewedArticles(
       bool isCachedData);
+  Future<Either<DBException, EmptyResult>> saveArticleToDB(
+      ArticleEntity article);
+  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
+      ArticleEntity article);
 }
 
 class ViewedInteractorImpl implements ViewedInteractor {
@@ -19,5 +24,17 @@ class ViewedInteractorImpl implements ViewedInteractor {
   Future<Either<NetworkException, List<ArticleEntity>>> fetchMostViewedArticles(
       bool isCachedData) async {
     return repository.fetchMostViewedArticles(isCachedData);
+  }
+
+  @override
+  Future<Either<DBException, EmptyResult>> saveArticleToDB(
+      ArticleEntity article) async {
+    return await repository.saveArticleToDB(article);
+  }
+
+  @override
+  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
+      ArticleEntity article) async {
+    return await repository.deleteArticleFromDB(article);
   }
 }

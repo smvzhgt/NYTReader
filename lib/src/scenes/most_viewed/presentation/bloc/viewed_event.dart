@@ -12,3 +12,19 @@ class FetchViewedArticlesEvent extends ViewedEvent {
   @override
   List<Object> get props => throw UnimplementedError();
 }
+
+class AddToFavoriteEvent extends ViewedEvent {
+  final ArticleEntity articleEntity;
+
+  AddToFavoriteEvent(this.articleEntity);
+  @override
+  List<Object> get props => throw UnimplementedError();
+}
+
+class DeleteFromFavoriteEvent extends ViewedEvent {
+  final ArticleEntity articleEntity;
+
+  DeleteFromFavoriteEvent(this.articleEntity);
+  @override
+  List<Object> get props => throw UnimplementedError();
+}

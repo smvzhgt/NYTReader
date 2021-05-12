@@ -11,8 +11,10 @@ part 'favorite_state.dart';
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   final FavoriteInteractor interactor;
 
-  FavoriteBloc(FavoriteState initialState, this.interactor)
-      : super(initialState);
+  FavoriteBloc(
+    FavoriteState initialState,
+    this.interactor,
+  ) : super(initialState);
 
   @override
   Stream<FavoriteState> mapEventToState(
@@ -24,7 +26,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       if (either.isRight()) {
         final articles = either.getOrElse(() => List<ArticleEntity>.empty());
         if (articles.isEmpty) {
-          yield FavoriteInitialState();
+          yield FavoriteEmptyState();
         } else {
           yield FavoriteLoadedState(articles);
         }

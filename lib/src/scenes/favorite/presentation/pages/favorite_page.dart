@@ -26,6 +26,15 @@ class _FavoritePageState extends State<FavoritePage> {
     BlocProvider.of<FavoriteBloc>(context).add(FetchFavoriteArticlesEvent());
   }
 
+  void _onClickButton(ArticleEntity entity) {
+    if (entity.isFavorite) {
+      BlocProvider.of<FavoriteBloc>(context)
+          .add(DeleteFromFavoriteEvent(entity));
+    } else {
+      BlocProvider.of<FavoriteBloc>(context).add(AddToFavoriteEvent(entity));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,11 +47,12 @@ class _FavoritePageState extends State<FavoritePage> {
             if (state is FavoriteLoadingState) {
               return const LoadingPage();
             } else if (state is FavoriteLoadedState) {
-              final items = state.articles;
-              return _buildList(items);
+              return _buildList(state.articles);
             } else if (state is FavoriteErrorState) {
               return const ErrorPage();
             } else if (state is FavoriteInitialState) {
+              return Container();
+            } else if (state is FavoriteEmptyState) {
               return const EmptyFavoritePage();
             } else {
               return Container();
@@ -57,7 +67,10 @@ class _FavoritePageState extends State<FavoritePage> {
     return ListView.builder(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       itemBuilder: (BuildContext context, int index) {
-        return ArticleRowItem(entity: entities[index], isClickable: false);
+        return ArticleRowItem(
+          entity: entities[index],
+          onClickButton: _onClickButton,
+        );
       },
       itemCount: entities.length,
     );
