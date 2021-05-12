@@ -5,6 +5,8 @@ import 'package:nyt_news/src/scenes/favorite/domain/repository/favorite_reposito
 
 abstract class FavoriteInteractor {
   Future<Either<DBException, List<ArticleEntity>>> fetchFavoriteArticles();
+  Future<Either<DBException, List<ArticleEntity>>> deleteArticleFromDB(
+      ArticleEntity article);
 }
 
 class FavoriteInteractorImpl implements FavoriteInteractor {
@@ -18,5 +20,11 @@ class FavoriteInteractorImpl implements FavoriteInteractor {
   Future<Either<DBException, List<ArticleEntity>>>
       fetchFavoriteArticles() async {
     return repository.fetchFavoriteArticles();
+  }
+
+  @override
+  Future<Either<DBException, List<ArticleEntity>>> deleteArticleFromDB(
+      ArticleEntity article) async {
+    return repository.deleteArticleFromDB(article);
   }
 }

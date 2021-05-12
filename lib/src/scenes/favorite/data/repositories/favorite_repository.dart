@@ -15,4 +15,10 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
   Future<Either<DBException, List<ArticleEntity>>> fetchFavoriteArticles() {
     return localDataSource.fetchFavoriteArticles();
   }
+
+  @override
+  Future<Either<DBException, List<ArticleEntity>>> deleteArticleFromDB(
+      ArticleEntity article) async {
+    return localDataSource.deleteArticleFromDB(article);
+  }
 }

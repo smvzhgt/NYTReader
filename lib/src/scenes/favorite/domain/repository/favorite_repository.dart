@@ -4,4 +4,6 @@ import 'package:nyt_news/core/exceptions.dart';
 
 abstract class FavoriteRepository {
   Future<Either<DBException, List<ArticleEntity>>> fetchFavoriteArticles();
+  Future<Either<DBException, List<ArticleEntity>>> deleteArticleFromDB(
+      ArticleEntity article);
 }

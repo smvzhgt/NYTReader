@@ -25,7 +25,7 @@ class FavoriteLoadedState extends FavoriteState {
   FavoriteLoadedState(this.articles);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [articles];
 }
 
 class FavoriteEmptyState extends FavoriteState {

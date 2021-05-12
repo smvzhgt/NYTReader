@@ -33,6 +33,18 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       } else {
         yield FavoriteErrorState();
       }
+    } else if (event is DeleteFromFavoriteEvent) {
+      final either = await interactor.deleteArticleFromDB(event.articleEntity);
+      if (either.isRight()) {
+        final articles = either.getOrElse(() => List<ArticleEntity>.empty());
+        if (articles.isEmpty) {
+          yield FavoriteEmptyState();
+        } else {
+          yield FavoriteLoadedState(articles);
+        }
+      } else {
+        yield FavoriteErrorState();
+      }
     }
   }
 }
