@@ -1,6 +1,6 @@
 # nyt_news
 
-A new Flutter project.
+Simple "New York Times" news reader.
 
 ## Getting Started
 
