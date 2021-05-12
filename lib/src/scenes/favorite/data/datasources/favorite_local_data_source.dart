@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:nyt_news/core/db/db_client.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/exceptions.dart';
+import 'package:sqflite/sqflite.dart';
 
 abstract class FavoriteLocalDataSource {
   Future<Either<DBException, List<ArticleEntity>>> fetchFavoriteArticles();
@@ -34,11 +35,15 @@ class FavoriteLocalDataSourceImpl implements FavoriteLocalDataSource {
   @override
   Future<Either<DBException, List<ArticleEntity>>> deleteArticleFromDB(
       ArticleEntity article) async {
-    final result = await _deleteFromDb(article);
-    if (result != null && !result.isNegative) {
-      final articles = await dbClient.getAllArticles();
-      return Right(articles);
-    } else {
+    try {
+      final result = await _deleteFromDb(article);
+      if (result != null && !result.isNegative) {
+        final articles = await dbClient.getAllArticles();
+        return Right(articles);
+      } else {
+        return Left(DBException());
+      }
+    } on DatabaseException {
       return Left(DBException());
     }
   }

@@ -19,6 +19,11 @@ class ViewedErrorState extends ViewedState {
   List<Object> get props => [];
 }
 
+class ViewedDataBaseErrorState extends ViewedState {
+  @override
+  List<Object> get props => [];
+}
+
 class ViewedLoadedState extends ViewedState {
   final List<ArticleEntity> articles;
 

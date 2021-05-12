@@ -110,6 +110,16 @@ class S {
     );
   }
 
+  /// `Data base error`
+  String get error_data_base_label {
+    return Intl.message(
+      'Data base error',
+      name: 'error_data_base_label',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Favorite articles not found`
   String get empty_favorite_label {
     return Intl.message(

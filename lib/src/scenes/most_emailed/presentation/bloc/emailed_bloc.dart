@@ -11,7 +11,10 @@ part 'emailed_state.dart';
 class EmailedBloc extends Bloc<EmailedEvent, EmailedState> {
   final EmailedInteractor interactor;
 
-  EmailedBloc(EmailedState initialState, this.interactor) : super(initialState);
+  EmailedBloc(
+    EmailedState initialState,
+    this.interactor,
+  ) : super(initialState);
 
   @override
   Stream<EmailedState> mapEventToState(
@@ -31,9 +34,15 @@ class EmailedBloc extends Bloc<EmailedEvent, EmailedState> {
         yield EmailedErrorState();
       }
     } else if (event is AddToFavoriteEvent) {
-      await interactor.saveArticleToDB(event.articleEntity);
+      final either = await interactor.saveArticleToDB(event.articleEntity);
+      if (either.isLeft()) {
+        yield EmailedDataBaseErrorState();
+      }
     } else if (event is DeleteFromFavoriteEvent) {
-      await interactor.deleteArticleFromDB(event.articleEntity);
+      final either = await interactor.deleteArticleFromDB(event.articleEntity);
+      if (either.isLeft()) {
+        yield EmailedDataBaseErrorState();
+      }
     }
   }
 }

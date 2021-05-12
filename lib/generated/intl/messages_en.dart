@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "emailed_label": MessageLookupByLibrary.simpleMessage("Emailed"),
         "empty_favorite_label":
             MessageLookupByLibrary.simpleMessage("Favorite articles not found"),
+        "error_data_base_label":
+            MessageLookupByLibrary.simpleMessage("Data base error"),
         "error_loading_data_label":
             MessageLookupByLibrary.simpleMessage("Error loading articles"),
         "favorite_label": MessageLookupByLibrary.simpleMessage("Favorite"),

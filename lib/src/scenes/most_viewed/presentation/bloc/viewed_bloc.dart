@@ -11,7 +11,10 @@ part 'viewed_state.dart';
 class ViewedBloc extends Bloc<ViewedEvent, ViewedState> {
   final ViewedInteractor interactor;
 
-  ViewedBloc(ViewedState initialState, this.interactor) : super(initialState);
+  ViewedBloc(
+    ViewedState initialState,
+    this.interactor,
+  ) : super(initialState);
 
   @override
   Stream<ViewedState> mapEventToState(
@@ -31,9 +34,15 @@ class ViewedBloc extends Bloc<ViewedEvent, ViewedState> {
         yield ViewedErrorState();
       }
     } else if (event is AddToFavoriteEvent) {
-      await interactor.saveArticleToDB(event.articleEntity);
+      final either = await interactor.saveArticleToDB(event.articleEntity);
+      if (either.isLeft()) {
+        yield ViewedDataBaseErrorState();
+      }
     } else if (event is DeleteFromFavoriteEvent) {
-      await interactor.deleteArticleFromDB(event.articleEntity);
+      final either = await interactor.deleteArticleFromDB(event.articleEntity);
+      if (either.isLeft()) {
+        yield ViewedDataBaseErrorState();
+      }
     }
   }
 }

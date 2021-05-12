@@ -19,6 +19,11 @@ class EmailedErrorState extends EmailedState {
   List<Object> get props => [];
 }
 
+class EmailedDataBaseErrorState extends EmailedState {
+  @override
+  List<Object> get props => [];
+}
+
 class EmailedLoadedState extends EmailedState {
   final List<ArticleEntity> articles;
 

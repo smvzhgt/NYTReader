@@ -34,9 +34,15 @@ class SharedBloc extends Bloc<SharedEvent, SharedState> {
         yield SharedErrorState();
       }
     } else if (event is AddToFavoriteEvent) {
-      interactor.saveArticleToDB(event.articleEntity);
+      final either = await interactor.saveArticleToDB(event.articleEntity);
+      if (either.isLeft()) {
+        yield SharedDataBaseErrorState();
+      }
     } else if (event is DeleteFromFavoriteEvent) {
-      interactor.deleteArticleFromDB(event.articleEntity);
+      final either = await interactor.deleteArticleFromDB(event.articleEntity);
+      if (either.isLeft()) {
+        yield SharedDataBaseErrorState();
+      }
     }
   }
 }

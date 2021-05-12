@@ -3,10 +3,13 @@ import 'package:nyt_news/core/db/db_client.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/exceptions.dart';
 import 'package:nyt_news/core/result_type.dart';
+import 'package:sqflite/sqflite.dart';
 
 abstract class SharedLocalDataSource {
-  Future<Either<DBException, EmptyResult>> saveArticleToDB(ArticleEntity article);
-  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(ArticleEntity article);
+  Future<Either<DBException, EmptyResult>> saveArticleToDB(
+      ArticleEntity article);
+  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
+      ArticleEntity article);
   Future<Either<DBException, List<ArticleEntity>>> fetchArticlesFromDB();
 }
 
@@ -31,11 +34,31 @@ class SharedLocalDataSourceImpl implements SharedLocalDataSource {
   }
 
   @override
-  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(ArticleEntity article) async {
-    final result = await _deleteFromDb(article);
-    if (result != null && !result.isNegative) {
-      return Right(EmptyResult());
-    } else {
+  Future<Either<DBException, EmptyResult>> saveArticleToDB(
+      ArticleEntity article) async {
+    try {
+      final result = await _saveToDb(article);
+      if (result != null && !result.isNegative) {
+        return Right(EmptyResult());
+      } else {
+        return Left(DBException());
+      }
+    } on DatabaseException {
+      return Left(DBException());
+    }
+  }
+
+  @override
+  Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
+      ArticleEntity article) async {
+    try {
+      final result = await _deleteFromDb(article);
+      if (result != null && !result.isNegative) {
+        return Right(EmptyResult());
+      } else {
+        return Left(DBException());
+      }
+    } on DatabaseException {
       return Left(DBException());
     }
   }
@@ -45,17 +68,7 @@ class SharedLocalDataSourceImpl implements SharedLocalDataSource {
     try {
       final result = await dbClient.getAllArticles();
       return Right(result);
-    } on Exception {
-      return Left(DBException());
-    }
-  }
-
-  @override
-  Future<Either<DBException, EmptyResult>> saveArticleToDB(ArticleEntity article) async {
-    final result = await _saveToDb(article);
-    if (result != null && !result.isNegative) {
-      return Right(EmptyResult());
-    } else {
+    } on DatabaseException {
       return Left(DBException());
     }
   }

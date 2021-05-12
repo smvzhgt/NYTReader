@@ -49,11 +49,13 @@ class _FavoritePageState extends State<FavoritePage> {
             } else if (state is FavoriteLoadedState) {
               return _buildList(state.articles);
             } else if (state is FavoriteErrorState) {
-              return const ErrorPage();
+              return ErrorPage(message: S.of(context).error_loading_data_label);
             } else if (state is FavoriteInitialState) {
               return Container();
             } else if (state is FavoriteEmptyState) {
               return const EmptyFavoritePage();
+            } else if (state is FavoriteDataBaseErrorState) {
+              return ErrorPage(message: S.of(context).error_data_base_label);
             } else {
               return Container();
             }

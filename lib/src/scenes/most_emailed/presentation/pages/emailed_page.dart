@@ -60,9 +60,11 @@ class _EmailedPageState extends State<EmailedPage> {
               final items = state.articles;
               return _buildList(items);
             } else if (state is EmailedErrorState) {
-              return const ErrorPage();
+              return ErrorPage(message: S.of(context).error_loading_data_label);
             } else if (state is EmailedInitialState) {
               return Container();
+            } else if (state is EmailedDataBaseErrorState) {
+              return ErrorPage(message: S.of(context).error_data_base_label);
             } else {
               return Container();
             }

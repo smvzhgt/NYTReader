@@ -59,9 +59,11 @@ class _SharedPageState extends State<SharedPage> {
               final items = state.articles;
               return _buildList(items);
             } else if (state is SharedErrorState) {
-              return const ErrorPage();
+              return ErrorPage(message: S.of(context).error_loading_data_label);
             } else if (state is SharedInitialState) {
               return Container();
+            } else if (state is SharedDataBaseErrorState) {
+              return ErrorPage(message: S.of(context).error_data_base_label);
             } else {
               return Container();
             }

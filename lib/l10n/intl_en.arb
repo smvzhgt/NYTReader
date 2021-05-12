@@ -5,6 +5,7 @@
   "favorite_label":"Favorite",
   "app_title":"New York Times Reader",
   "error_loading_data_label":"Error loading articles",
+  "error_data_base_label":"Data base error",
   "empty_favorite_label":"Favorite articles not found"
 }
 

@@ -19,6 +19,11 @@ class FavoriteErrorState extends FavoriteState {
   List<Object> get props => [];
 }
 
+class FavoriteDataBaseErrorState extends FavoriteState {
+  @override
+  List<Object> get props => [];
+}
+
 class FavoriteLoadedState extends FavoriteState {
   final List<ArticleEntity> articles;
 
@@ -29,7 +34,6 @@ class FavoriteLoadedState extends FavoriteState {
 }
 
 class FavoriteEmptyState extends FavoriteState {
-
   @override
   List<Object> get props => [];
 }

@@ -3,6 +3,7 @@ import 'package:nyt_news/core/db/db_client.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/exceptions.dart';
 import 'package:nyt_news/core/result_type.dart';
+import 'package:sqflite/sqflite.dart';
 
 abstract class EmailedLocalDataSource {
   Future<Either<DBException, EmptyResult>> saveArticleToDB(
@@ -35,10 +36,14 @@ class EmailedLocalDataSourceImpl implements EmailedLocalDataSource {
   @override
   Future<Either<DBException, EmptyResult>> saveArticleToDB(
       ArticleEntity article) async {
-    final result = await _saveToDb(article);
-    if (result != null && !result.isNegative) {
-      return Right(EmptyResult());
-    } else {
+    try {
+      final result = await _saveToDb(article);
+      if (result != null && !result.isNegative) {
+        return Right(EmptyResult());
+      } else {
+        return Left(DBException());
+      }
+    } on DatabaseException {
       return Left(DBException());
     }
   }
@@ -46,10 +51,14 @@ class EmailedLocalDataSourceImpl implements EmailedLocalDataSource {
   @override
   Future<Either<DBException, EmptyResult>> deleteArticleFromDB(
       ArticleEntity article) async {
-    final result = await _deleteFromDb(article);
-    if (result != null && !result.isNegative) {
-      return Right(EmptyResult());
-    } else {
+    try {
+      final result = await _deleteFromDb(article);
+      if (result != null && !result.isNegative) {
+        return Right(EmptyResult());
+      } else {
+        return Left(DBException());
+      }
+    } on DatabaseException {
       return Left(DBException());
     }
   }
@@ -59,7 +68,7 @@ class EmailedLocalDataSourceImpl implements EmailedLocalDataSource {
     try {
       final result = await dbClient.getAllArticles();
       return Right(result);
-    } on Exception {
+    } on DatabaseException {
       return Left(DBException());
     }
   }

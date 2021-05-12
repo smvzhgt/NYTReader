@@ -59,9 +59,11 @@ class _ViewedPageState extends State<ViewedPage> {
               final items = state.articles;
               return _buildList(items);
             } else if (state is ViewedErrorState) {
-              return const ErrorPage();
+              return ErrorPage(message: S.of(context).error_loading_data_label);
             } else if (state is ViewedInitialState) {
               return Container();
+            } else if (state is ViewedDataBaseErrorState) {
+              return ErrorPage(message: S.of(context).error_data_base_label);
             } else {
               return Container();
             }

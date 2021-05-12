@@ -38,12 +38,12 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       if (either.isRight()) {
         final articles = either.getOrElse(() => List<ArticleEntity>.empty());
         if (articles.isEmpty) {
-          yield FavoriteEmptyState();
+          yield FavoriteDataBaseErrorState();
         } else {
           yield FavoriteLoadedState(articles);
         }
       } else {
-        yield FavoriteErrorState();
+        yield FavoriteDataBaseErrorState();
       }
     }
   }
