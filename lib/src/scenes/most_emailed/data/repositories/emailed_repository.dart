@@ -20,6 +20,7 @@ class EmailedRepositoryImpl implements EmailedRepository {
   Future<Either<NetworkException, List<ArticleEntity>>>
       fetchMostEmailedArticles() async {
     final either = await remoteDataSource.fetchMostEmailedArticles();
+
     if (either.isRight()) {
       final remoteResult = either.getOrElse(() => List<ArticleModel>.empty());
       final remoteEntities = remoteResult.map((e) => e.entity()).toList();
@@ -28,11 +29,11 @@ class EmailedRepositoryImpl implements EmailedRepository {
       final dbEntities = dbResult.getOrElse(() => List<ArticleModel>.empty());
 
       dbEntities.forEach((dbElement) {
-        remoteEntities
-            .firstWhere(
-              (element) => dbElement.id == element.id,
-            )
-            .isFavorite = true;
+        remoteEntities.forEach((element) {
+          if (element.id == dbElement.id) {
+            element.isFavorite = true;
+          }
+        });
       });
 
       return Right(remoteEntities);

@@ -11,7 +11,10 @@ part 'shared_state.dart';
 class SharedBloc extends Bloc<SharedEvent, SharedState> {
   final SharedInteractor interactor;
 
-  SharedBloc(SharedState initialState, this.interactor) : super(initialState);
+  SharedBloc(
+    SharedState initialState,
+    this.interactor,
+  ) : super(initialState);
 
   @override
   Stream<SharedState> mapEventToState(
@@ -19,8 +22,7 @@ class SharedBloc extends Bloc<SharedEvent, SharedState> {
   ) async* {
     if (event is FetchSharedArticlesEvent) {
       yield SharedLoadingState();
-      final either =
-          await interactor.fetchMostSharedArticles();
+      final either = await interactor.fetchMostSharedArticles();
       if (either.isRight()) {
         final entities = either.getOrElse(() => List<ArticleEntity>.empty());
         if (entities.isEmpty) {
@@ -31,6 +33,10 @@ class SharedBloc extends Bloc<SharedEvent, SharedState> {
       } else {
         yield SharedErrorState();
       }
+    } else if (event is AddToFavoriteEvent) {
+      interactor.saveArticleToDB(event.articleEntity);
+    } else if (event is DeleteFromFavoriteEvent) {
+      interactor.deleteArticleFromDB(event.articleEntity);
     }
   }
 }

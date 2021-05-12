@@ -27,9 +27,9 @@ class ArticleRowItem extends StatelessWidget {
 
   Widget _setImageWidget(String url) {
     return Container(
-      margin: const EdgeInsets.all(2.0),
-      height: 80.0,
-      width: 80.0,
+      margin: const EdgeInsets.only(right: 8.0),
+      height: 75.0,
+      width: 75.0,
       child: ClipOval(
           child: entity.imageUrl.isNotEmpty
               ? Image.network(entity.imageUrl, fit: BoxFit.cover)
@@ -39,17 +39,18 @@ class ArticleRowItem extends StatelessWidget {
 
   Widget _articleTitleTextWidget(String title) {
     return Padding(
-      padding: const EdgeInsets.only(top: 2.0, bottom: 2.0),
+      padding: const EdgeInsets.only(bottom: 4.0, right: 4.0, top: 2.0),
       child: Text(entity.title,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+          maxLines: 2),
     );
   }
 
   Widget _articleBodyTextWidget(String text) {
     return Expanded(
       child: Text(entity.articleAbstract,
-          overflow: TextOverflow.ellipsis, maxLines: 4),
+          overflow: TextOverflow.ellipsis, maxLines: 3),
     );
   }
 
@@ -67,16 +68,14 @@ class ArticleRowItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _articleTitleTextWidget(entity.title),
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _articleBodyTextWidget(entity.articleAbstract),
-                          FavoriteButtonWidget(
-                              entity: entity, onClickButton: onClickButton)
-                        ],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _articleBodyTextWidget(entity.articleAbstract),
+                        FavoriteButtonWidget(
+                            entity: entity, onClickButton: onClickButton)
+                      ],
                     ),
                   ]),
             )

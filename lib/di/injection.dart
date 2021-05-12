@@ -12,6 +12,7 @@ import 'package:nyt_news/src/scenes/most_emailed/data/repositories/emailed_repos
 import 'package:nyt_news/src/scenes/most_emailed/domain/interactor/emailed_interactor.dart';
 import 'package:nyt_news/src/scenes/most_emailed/domain/repository/emailed_repository.dart';
 import 'package:nyt_news/src/scenes/most_emailed/presentation/bloc/emailed_bloc.dart';
+import 'package:nyt_news/src/scenes/most_shared/data/datasources/shared_local_data_source.dart';
 import 'package:nyt_news/src/scenes/most_shared/data/datasources/shared_remote_data_source.dart';
 import 'package:nyt_news/src/scenes/most_shared/data/repositories/shared_repository.dart';
 import 'package:nyt_news/src/scenes/most_shared/domain/interactor/shared_interactor.dart';
@@ -60,11 +61,15 @@ void init() {
   );
   // Repository
   sl.registerLazySingleton<SharedRepository>(
-    () => SharedRepositoryImpl(remoteDataSource: sl()),
+    () => SharedRepositoryImpl(remoteDataSource: sl(), localDataSource: sl()),
   );
   // RemoteDataSource
   sl.registerLazySingleton<SharedRemoteDataSource>(
     () => SharedRemoteDataSourceImpl(apiClient: sl()),
+  );
+  // LocalDataSource
+  sl.registerLazySingleton<SharedLocalDataSource>(
+    () => SharedLocalDataSourceImpl(dbClient: sl()),
   );
 
   // Most Viewed

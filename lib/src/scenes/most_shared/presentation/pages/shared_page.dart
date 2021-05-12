@@ -72,13 +72,18 @@ class _SharedPageState extends State<SharedPage> {
   }
 
   Widget _buildList(List<ArticleEntity> entities) {
-    return ListView.builder(
+    return ListView.separated(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+      itemCount: entities.length,
+      separatorBuilder: (BuildContext context, int index) => const Divider(
+        color: Colors.black26,
+      ),
       itemBuilder: (BuildContext context, int index) {
         return ArticleRowItem(
-            entity: entities[index], onClickButton: _onClickButton);
+          entity: entities[index],
+          onClickButton: _onClickButton,
+        );
       },
-      itemCount: entities.length,
     );
   }
 }
