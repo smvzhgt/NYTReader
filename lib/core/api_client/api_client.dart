@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' show Client;
 import 'package:nyt_news/core/api_client/endpoint.dart';
 import 'package:nyt_news/core/constants.dart';
@@ -17,27 +18,23 @@ abstract class ApiClient {
 }
 
 class ApiClientImpl implements ApiClient {
-  Client _client = Client();
+  static Client _client = Client();
   final _days = 30;
   final _apiKey = Constants.API_KEY;
 
-  @override
-  Future<Either<NetworkException, List<ArticleModel>>>
-      fetchMostEmailedArticles() async {
-    final authority = Endpoint.BASE_URL;
-    final unencodedPath = '/svc/mostpopular/v2/emailed/$_days.json';
-    final queryParams = {
-      "api-key": "$_apiKey",
-    };
-    var url = Uri.https(
-      authority,
-      unencodedPath,
-      queryParams,
-    );
+  static List<ArticleModel> parseArticles(String responseBody) {
+    final parsed = json.decode(responseBody);
+    final responseModel = ArticleResponseModel.fromJson(parsed);
+    return responseModel.articles;
+  }
+
+  static Future<Either<NetworkException, List<ArticleModel>>> doRequest(
+      Uri url) async {
     final response = await _client.get(url);
     if (response.statusCode == 200) {
-      final news = ArticleResponseModel.fromJson(json.decode(response.body));
-      return Right(news.articles);
+      final responseModel =
+          ArticleResponseModel.fromJson(json.decode(response.body));
+      return Right(responseModel.articles);
     } else {
       return Left(NetworkException());
     }
@@ -45,24 +42,30 @@ class ApiClientImpl implements ApiClient {
 
   @override
   Future<Either<NetworkException, List<ArticleModel>>>
-      fetchMostSharedArticles() async {
-    final authority = Endpoint.BASE_URL;
-    final unencodedPath = '/svc/mostpopular/v2/shared/$_days/facebook.json';
-    final queryParams = {
-      "api-key": "$_apiKey",
-    };
+      fetchMostEmailedArticles() async {
     var url = Uri.https(
-      authority,
-      unencodedPath,
-      queryParams,
+      Endpoint.BASE_URL,
+      '/svc/mostpopular/v2/emailed/$_days.json',
+      {
+        "api-key": "$_apiKey",
+      },
     );
-    final response = await _client.get(url);
-    if (response.statusCode == 200) {
-      final news = ArticleResponseModel.fromJson(json.decode(response.body));
-      return Right(news.articles);
-    } else {
-      return Left(NetworkException());
-    }
+
+    return compute(doRequest, url);
+  }
+
+  @override
+  Future<Either<NetworkException, List<ArticleModel>>>
+      fetchMostSharedArticles() async {
+    var url = Uri.https(
+      Endpoint.BASE_URL,
+      '/svc/mostpopular/v2/shared/$_days/facebook.json',
+      {
+        "api-key": "$_apiKey",
+      },
+    );
+
+    return compute(doRequest, url);
   }
 
   @override
