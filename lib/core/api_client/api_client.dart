@@ -22,12 +22,6 @@ class ApiClientImpl implements ApiClient {
   final _days = 30;
   final _apiKey = Constants.API_KEY;
 
-  static List<ArticleModel> parseArticles(String responseBody) {
-    final parsed = json.decode(responseBody);
-    final responseModel = ArticleResponseModel.fromJson(parsed);
-    return responseModel.articles;
-  }
-
   static Future<Either<NetworkException, List<ArticleModel>>> doRequest(
       Uri url) async {
     final response = await _client.get(url);
