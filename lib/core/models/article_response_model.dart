@@ -1,56 +1,43 @@
 import 'package:nyt_news/core/entities/article_entity.dart';
 
 class ArticleResponseModel {
-  String? _status;
-  String? _copyright;
-  int? _numResults;
-  List<ArticleModel> _articles = List<ArticleModel>.empty(growable: true);
+  String? status;
+  String? copyright;
+  int? numResults;
+  List<ArticleModel> articles = List<ArticleModel>.empty(growable: true);
 
-  ArticleResponseModel(
-      {String? status,
-      String? copyright,
-      int? numResults,
-      required List<ArticleModel> articles}) {
-    this._status = status;
-    this._copyright = copyright;
-    this._numResults = numResults;
-    this._articles = articles;
-  }
-
-  String? get status => _status;
-  set status(String? status) => _status = status;
-  String? get copyright => _copyright;
-  set copyright(String? copyright) => _copyright = copyright;
-  int? get numResults => _numResults;
-  set numResults(int? numResults) => _numResults = numResults;
-  List<ArticleModel> get articles => _articles;
-  set results(List<ArticleModel> results) => _articles = results;
+  ArticleResponseModel({
+    String? status,
+    String? copyright,
+    int? numResults,
+    required List<ArticleModel> articles,
+  });
 
   ArticleResponseModel.fromJson(Map<String, dynamic> json) {
-    _status = json['status'];
-    _copyright = json['copyright'];
-    _numResults = json['num_results'];
+    status = json['status'];
+    copyright = json['copyright'];
+    numResults = json['num_results'];
     json['results'].forEach((v) {
-      _articles.add(ArticleModel.fromJson(v));
+      articles.add(ArticleModel.fromJson(v));
     });
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['status'] = this._status;
-    data['copyright'] = this._copyright;
-    data['num_results'] = this._numResults;
-    data['results'] = this._articles.map((v) => v.toJson()).toList();
+    data['status'] = this.status;
+    data['copyright'] = this.copyright;
+    data['num_results'] = this.numResults;
+    data['results'] = this.articles.map((v) => v.toJson()).toList();
     return data;
   }
 }
 
 class ArticleModel extends ArticleEntity {
-  int _id = 0;
-  String _url = "";
-  String _title = "";
-  String _articleAbstract = "";
-  List<Media> _media = List<Media>.empty(growable: true);
+  int id = 0;
+  String url = "";
+  String title = "";
+  String articleAbstract = "";
+  List<Media> media = List<Media>.empty(growable: true);
 
   ArticleModel({
     required int id,
@@ -59,30 +46,13 @@ class ArticleModel extends ArticleEntity {
     required String articleAbstract,
     required List<Media> media,
   }) : super(
-            id: id,
-            url: url,
-            title: title,
-            articleAbstract: articleAbstract,
-            imageUrl: "",
-            isFavorite: false) {
-    this._id = id;
-    this._url = url;
-    this._title = title;
-    this._articleAbstract = articleAbstract;
-    this._media = media;
-  }
-
-  int get id => _id;
-  set id(int id) => _id = id;
-  String get url => _url;
-  set url(String url) => _url = url;
-  String get title => _title;
-  set title(String title) => _title = title;
-  String get articleAbstract => _articleAbstract;
-  set articleAbstract(String articleAbstract) =>
-      _articleAbstract = articleAbstract;
-  List<Media> get media => _media;
-  set media(List<Media> media) => _media = media;
+          id: id,
+          url: url,
+          title: title,
+          articleAbstract: articleAbstract,
+          imageUrl: "",
+          isFavorite: false,
+        );
 
   factory ArticleModel.fromJson(Map<String, dynamic> json) {
     List<Media> media = List<Media>.empty(growable: true);
@@ -94,48 +64,49 @@ class ArticleModel extends ArticleEntity {
       media.add(Media.fromJson(v));
     });
     return ArticleModel(
-        id: id,
-        url: url,
-        title: title,
-        articleAbstract: articleAbstract,
-        media: media);
+      id: id,
+      url: url,
+      title: title,
+      articleAbstract: articleAbstract,
+      media: media,
+    );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['url'] = this._url;
-    data['id'] = this._id;
-    data['title'] = this._title;
-    data['abstract'] = this._articleAbstract;
-    data['media'] = this._media.map((v) => v.toJson()).toList();
+    data['url'] = this.url;
+    data['id'] = this.id;
+    data['title'] = this.title;
+    data['abstract'] = this.articleAbstract;
+    data['media'] = this.media.map((v) => v.toJson()).toList();
     return data;
   }
 
   ArticleEntity entity() {
     String entityImageUrl = "";
     if (this.media.isNotEmpty) {
-      entityImageUrl = _media.first.mediaMetadata
+      entityImageUrl = media.first.mediaMetadata
           .firstWhere((element) => element.format == "mediumThreeByTwo210")
           .url!;
     }
     return ArticleEntity(
-        id: id,
-        url: url,
-        title: title,
-        articleAbstract: articleAbstract,
-        imageUrl: entityImageUrl,
-        isFavorite: false);
+      id: id,
+      url: url,
+      title: title,
+      articleAbstract: articleAbstract,
+      imageUrl: entityImageUrl,
+      isFavorite: false,
+    );
   }
 }
 
 class Media {
-  String? _type;
-  String? _subtype;
-  String? _caption;
-  String? _copyright;
-  int? _approvedForSyndication;
-  List<MediaMetadata> _mediaMetadata =
-      List<MediaMetadata>.empty(growable: true);
+  String? type;
+  String? subtype;
+  String? caption;
+  String? copyright;
+  int? approvedForSyndication;
+  List<MediaMetadata> mediaMetadata = List<MediaMetadata>.empty(growable: true);
 
   Media(
       {String? type,
@@ -143,94 +114,63 @@ class Media {
       String? caption,
       String? copyright,
       int? approvedForSyndication,
-      required List<MediaMetadata> mediaMetadata}) {
-    this._type = type;
-    this._subtype = subtype;
-    this._caption = caption;
-    this._copyright = copyright;
-    this._approvedForSyndication = approvedForSyndication;
-    this._mediaMetadata = mediaMetadata;
-  }
-
-  String? get type => _type;
-  set type(String? type) => _type = type;
-  String? get subtype => _subtype;
-  set subtype(String? subtype) => _subtype = subtype;
-  String? get caption => _caption;
-  set caption(String? caption) => _caption = caption;
-  String? get copyright => _copyright;
-  set copyright(String? copyright) => _copyright = copyright;
-  int? get approvedForSyndication => _approvedForSyndication;
-  set approvedForSyndication(int? approvedForSyndication) =>
-      _approvedForSyndication = approvedForSyndication;
-  List<MediaMetadata> get mediaMetadata => _mediaMetadata;
-  set mediaMetadata(List<MediaMetadata> mediaMetadata) =>
-      _mediaMetadata = mediaMetadata;
+      required List<MediaMetadata> mediaMetadata});
 
   Media.fromJson(Map<String, dynamic> json) {
-    _type = json['type'];
-    _subtype = json['subtype'];
-    _caption = json['caption'];
-    _copyright = json['copyright'];
-    _approvedForSyndication = json['approved_for_syndication'];
+    type = json['type'];
+    subtype = json['subtype'];
+    caption = json['caption'];
+    copyright = json['copyright'];
+    approvedForSyndication = json['approved_for_syndication'];
     if (json['media-metadata'] != null) {
-      _mediaMetadata = List<MediaMetadata>.empty(growable: true);
+      mediaMetadata = List<MediaMetadata>.empty(growable: true);
       json['media-metadata'].forEach((v) {
-        _mediaMetadata.add(MediaMetadata.fromJson(v));
+        mediaMetadata.add(MediaMetadata.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['type'] = this._type;
-    data['subtype'] = this._subtype;
-    data['caption'] = this._caption;
-    data['copyright'] = this._copyright;
-    data['approved_for_syndication'] = this._approvedForSyndication;
-    if (this._mediaMetadata.isNotEmpty) {
+    data['type'] = this.type;
+    data['subtype'] = this.subtype;
+    data['caption'] = this.caption;
+    data['copyright'] = this.copyright;
+    data['approved_for_syndication'] = this.approvedForSyndication;
+    if (this.mediaMetadata.isNotEmpty) {
       data['media-metadata'] =
-          this._mediaMetadata.map((v) => v.toJson()).toList();
+          this.mediaMetadata.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class MediaMetadata {
-  String? _url;
-  String? _format;
-  int? _height;
-  int? _width;
+  String? url;
+  String? format;
+  int? height;
+  int? width;
 
   MediaMetadata({String? url, String? format, int? height, int? width}) {
-    this._url = url;
-    this._format = format;
-    this._height = height;
-    this._width = width;
+    this.url = url;
+    this.format = format;
+    this.height = height;
+    this.width = width;
   }
 
-  String? get url => _url;
-  set url(String? url) => _url = url;
-  String? get format => _format;
-  set format(String? format) => _format = format;
-  int? get height => _height;
-  set height(int? height) => _height = height;
-  int? get width => _width;
-  set width(int? width) => _width = width;
-
   MediaMetadata.fromJson(Map<String, dynamic> json) {
-    _url = json['url'];
-    _format = json['format'];
-    _height = json['height'];
-    _width = json['width'];
+    url = json['url'];
+    format = json['format'];
+    height = json['height'];
+    width = json['width'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['url'] = this._url;
-    data['format'] = this._format;
-    data['height'] = this._height;
-    data['width'] = this._width;
+    data['url'] = this.url;
+    data['format'] = this.format;
+    data['height'] = this.height;
+    data['width'] = this.width;
     return data;
   }
 }

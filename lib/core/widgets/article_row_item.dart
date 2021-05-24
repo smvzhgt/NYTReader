@@ -8,7 +8,7 @@ import 'favorite_button_widget.dart';
 
 class ArticleRowItem extends StatelessWidget {
   final ArticleEntity entity;
-  Function(ArticleEntity entity) onClickButton;
+  final Function(ArticleEntity entity) onClickButton;
 
   ArticleRowItem({
     Key? key,

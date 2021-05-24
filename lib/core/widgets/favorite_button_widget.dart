@@ -3,7 +3,7 @@ import 'package:nyt_news/core/entities/article_entity.dart';
 
 class FavoriteButtonWidget extends StatefulWidget {
   final ArticleEntity entity;
-  Function(ArticleEntity entity) onClickButton;
+  final Function(ArticleEntity entity) onClickButton;
 
   FavoriteButtonWidget({
     Key? key,
