@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' show Client;
 import 'package:nyt_news/core/api_client/endpoint.dart';
-import 'package:nyt_news/core/constants.dart';
 import 'package:nyt_news/core/exceptions.dart';
 import 'package:nyt_news/core/models/article_response_model.dart';
 
@@ -20,7 +20,7 @@ abstract class ApiClient {
 class ApiClientImpl implements ApiClient {
   static Client _client = Client();
   final _days = 30;
-  final _apiKey = Constants.API_KEY;
+  final _apiKey = env['API_KEY'];
 
   static Future<Either<NetworkException, List<ArticleModel>>> doRequest(
       Uri url) async {
