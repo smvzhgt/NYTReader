@@ -1,11 +1,13 @@
 import 'dart:convert';
 
-class ArticleEntity {
-  int id = 0;
-  String url = "";
-  String title = "";
-  String articleAbstract = "";
-  String imageUrl = "";
+import 'package:equatable/equatable.dart';
+
+class ArticleEntity extends Equatable {
+  final int id = 0;
+  final String url = "";
+  final String title = "";
+  final String articleAbstract = "";
+  final String imageUrl = "";
   bool isFavorite = false;
 
   ArticleEntity({
@@ -23,12 +25,13 @@ class ArticleEntity {
   String toRawJson() => json.encode(toJson());
 
   factory ArticleEntity.fromJson(Map<String, dynamic> json) => ArticleEntity(
-      url: json["url"],
-      id: json["id"],
-      title: json["title"],
-      articleAbstract: json["article_abstract"],
-      imageUrl: json["image_url"],
-      isFavorite: json["is_favorite"] == 1);
+        url: json["url"],
+        id: json["id"],
+        title: json["title"],
+        articleAbstract: json["article_abstract"],
+        imageUrl: json["image_url"],
+        isFavorite: json["is_favorite"] == 1,
+      );
 
   Map<String, dynamic> toJson() => {
         "url": url,
@@ -38,4 +41,8 @@ class ArticleEntity {
         "image_url": imageUrl,
         "isFavorite": isFavorite ? 1 : 0
       };
+
+  @override
+  List<Object?> get props =>
+      [id, url, title, articleAbstract, imageUrl, isFavorite];
 }

@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:nyt_news/core/api_client/api_client.dart';
+import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/exceptions.dart';
-import 'package:nyt_news/core/models/article_response_model.dart';
 
 abstract class ViewedRemoteDataSource {
-  Future<Either<NetworkException, List<ArticleModel>>>
+  Future<Either<NetworkException, List<ArticleEntity>>>
       fetchMostViewedArticles();
 }
 
@@ -16,7 +16,7 @@ class ViewedRemoteDataSourceImpl implements ViewedRemoteDataSource {
   });
 
   @override
-  Future<Either<NetworkException, List<ArticleModel>>>
+  Future<Either<NetworkException, List<ArticleEntity>>>
       fetchMostViewedArticles() {
     return apiClient.fetchMostViewedArticles();
   }

@@ -4,13 +4,13 @@ class ArticleResponseModel {
   String? status;
   String? copyright;
   int? numResults;
-  List<ArticleModel> articles = List<ArticleModel>.empty(growable: true);
+  List<ArticleEntity> articles = List<ArticleEntity>.empty(growable: true);
 
   ArticleResponseModel({
     String? status,
     String? copyright,
     int? numResults,
-    required List<ArticleModel> articles,
+    required List<ArticleEntity> articles,
   });
 
   ArticleResponseModel.fromJson(Map<String, dynamic> json) {
@@ -18,7 +18,8 @@ class ArticleResponseModel {
     copyright = json['copyright'];
     numResults = json['num_results'];
     json['results'].forEach((v) {
-      articles.add(ArticleModel.fromJson(v));
+      ArticleModel articleModel = ArticleModel.fromJson(v);
+      articles.add(articleModel.entity());
     });
   }
 
@@ -33,11 +34,11 @@ class ArticleResponseModel {
 }
 
 class ArticleModel extends ArticleEntity {
-  int id = 0;
-  String url = "";
-  String title = "";
-  String articleAbstract = "";
-  List<Media> media = List<Media>.empty(growable: true);
+  final int id = 0;
+  final String url = "";
+  final String title = "";
+  final String articleAbstract = "";
+  final List<Media> media = List<Media>.empty(growable: true);
 
   ArticleModel({
     required int id,

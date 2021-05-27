@@ -22,8 +22,7 @@ class ViewedRepositoryImpl implements ViewedRepository {
     final either = await remoteDataSource.fetchMostViewedArticles();
 
     if (either.isRight()) {
-      final remoteResult = either.getOrElse(() => List<ArticleModel>.empty());
-      final remoteEntities = remoteResult.map((e) => e.entity()).toList();
+      final remoteEntities = either.getOrElse(() => List<ArticleModel>.empty());
 
       final dbResult = await localDataSource.fetchArticlesFromDB();
       final dbEntities = dbResult.getOrElse(() => List<ArticleModel>.empty());
