@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' show Client;
 import 'package:nyt_news/core/api_client/endpoint.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/exceptions.dart';
 import 'package:nyt_news/core/models/article_response_model.dart';
+import 'package:nyt_news/core/wrappers/dotenv_wrapper.dart';
 
 abstract class ApiClient {
   Future<Either<NetworkException, List<ArticleEntity>>>
@@ -21,7 +21,7 @@ abstract class ApiClient {
 class ApiClientImpl implements ApiClient {
   static Client _client = Client();
   final _days = 30;
-  final _apiKey = env['API_KEY'];
+  final _apiKey = DotenvWrapper.instance.getValue(DotenvWrapper.apiKey);
 
   static Future<Either<NetworkException, List<ArticleEntity>>> doRequest(
       Uri url) async {
