@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:nyt_news/core/entities/article_entity.dart';
 import 'package:nyt_news/core/exceptions.dart';
-import 'package:nyt_news/core/models/article_response_model.dart';
 import 'package:nyt_news/core/result_type.dart';
 import 'package:nyt_news/src/scenes/most_shared/data/datasources/shared_local_data_source.dart';
 import 'package:nyt_news/src/scenes/most_shared/data/datasources/shared_remote_data_source.dart';
@@ -22,10 +21,10 @@ class SharedRepositoryImpl implements SharedRepository {
     final either = await remoteDataSource.fetchMostSharedArticles();
 
     if (either.isRight()) {
-      final remoteEntities = either.getOrElse(() => List<ArticleModel>.empty());
+      final remoteEntities = either.getOrElse(() => List<ArticleEntity>.empty());
 
       final dbResult = await localDataSource.fetchArticlesFromDB();
-      final dbEntities = dbResult.getOrElse(() => List<ArticleModel>.empty());
+      final dbEntities = dbResult.getOrElse(() => List<ArticleEntity>.empty());
 
       dbEntities.forEach((dbElement) {
         remoteEntities.forEach((element) {

@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class ArticleEntity extends Equatable {
-  final int id = 0;
-  final String url = "";
-  final String title = "";
-  final String articleAbstract = "";
-  final String imageUrl = "";
+  int id = 0;
+  String url = "";
+  String title = "";
+  String articleAbstract = "";
+  String imageUrl = "";
   bool isFavorite = false;
 
   ArticleEntity({
@@ -17,7 +17,12 @@ class ArticleEntity extends Equatable {
     required String articleAbstract,
     required String imageUrl,
     required bool isFavorite,
-  });
+  })  : this.id = id,
+        this.url = url,
+        this.title = title,
+        this.articleAbstract = articleAbstract,
+        this.imageUrl = imageUrl,
+        this.isFavorite = isFavorite;
 
   factory ArticleEntity.fromRawJson(String str) =>
       ArticleEntity.fromJson(json.decode(str));
